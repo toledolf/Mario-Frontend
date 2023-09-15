@@ -1,0 +1,68 @@
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px rgb(69, 68, 68);
+  width: 100%;
+}
+
+.barra svg {
+  margin: 2px;
+  height: 30px;
+  width: 30px;
+}
+
+.barra input[type="text"] {
+  display: inline;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.resultado {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.resultado ul {
+  background-color: #ccc;
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  width: 50%;
+  border-radius: 10px;
+}
+
+/* .resultado ul{
+  display: none;
+  position: absolute;
+  float: left;
+  border: 1px solid #000;
+  box-shadow: 10px 5px 5px rgb(69, 68, 68);
+  margin: 0 auto;
+  padding: 1px;
+  background-color: whitesmoke;
+  width: 50%;
+} */
+
+.resultado li {
+  list-style: none;
+  margin: 0;
+  padding: 3px;
+  border-bottom: 1px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.resultado li:hover {
+  background-color: #000;
+  color: #fff;
+}
