@@ -8,7 +8,7 @@ export default function Menu(props) {
       expand="lg"
     >
       <Container>
-        <LinkContainer to="/">
+        <LinkContainer to="/telaMenu">
           <Navbar.Brand>Inicio</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

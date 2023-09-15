@@ -3,6 +3,7 @@ import TelasCadastro from "./telas/TelasCadastro";
 import TelaMenu from "./telas/TelaMenu";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Tela404 from "./telas/tela404";
+import TelaLogin from "./telas/telaLogin";
 
 function App() {
   return (
@@ -11,6 +12,10 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={<TelaLogin />}
+          />
+          <Route
+            path="/telaMenu"
             element={<TelaMenu />}
           />
           <Route
