@@ -10,7 +10,7 @@ export default function TelaLogin() {
   const senhaCorreta = "123";
   const userCorreto = "alex";
 
-  const handleSubmit = (e) => {
+  const enviar = (e) => {
     e.preventDefault();
 
     if (senha === senhaCorreta && usuario === userCorreto) {
@@ -24,7 +24,7 @@ export default function TelaLogin() {
     <div className="login-page">
       <div className="form">
         <h1 className="title text-primary">Login</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={enviar}>
           <input
             type="text"
             placeholder="Usuário"
