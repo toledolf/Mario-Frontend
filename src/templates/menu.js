@@ -27,6 +27,18 @@ export default function Menu(props) {
                 <NavDropdown.Item>Usuários</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
+              <LinkContainer to="/FormDoacao">
+                <NavDropdown.Item>Doações</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormDenuncia">
+                <NavDropdown.Item>Denúncias</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormCampo">
+                <NavDropdown.Item>Campos</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
             </NavDropdown>
           </Nav>
           <Nav>
