@@ -7,6 +7,7 @@ export default function FormUsuarios(props) {
   // const [atualizando, setAtualizando] = useState(false);
   const [validado, setValidate] = useState(false);
   const [usuario, setUsuario] = useState(props.usuario);
+  const [userLevel, setUserLevel] = useState(1);
 
   function manipulaEvento(e) {
     const elemForm = e.currentTarget;
@@ -136,6 +137,44 @@ export default function FormUsuarios(props) {
 
               <Form.Control.Feedback type="invalid">
                 Por favor, informe a data!
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group
+              className="mb-3"
+              controlId="senha"
+            >
+              <Form.Label>Escolha uma senha:</Form.Label>
+              <Form.Control
+                required
+                type="number"
+                value={usuario.senha}
+                id="senha"
+                onChange={manipulaEvento}
+              />
+
+              <Form.Control.Feedback type="invalid">
+                Por favor, informe a senha!
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group
+              className="mb-3"
+              controlId="1"
+            >
+              <Form.Label>Escolha um nivel de acesso:</Form.Label>
+              <Form.Control
+                disabled
+                type="number"
+                value={usuario.userLevel = userLevel}
+                id="userLevel"
+                onChange={manipulaEvento}
+              />
+
+              <Form.Control.Feedback type="invalid">
+                Por favor, informe o nível de acesso!
               </Form.Control.Feedback>
             </Form.Group>
           </Col>

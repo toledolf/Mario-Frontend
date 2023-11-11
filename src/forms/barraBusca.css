@@ -33,6 +33,7 @@
 }
 
 .resultado ul {
+  z-index: 2;
   background-color: #ccc;
   position: absolute;
   list-style: none;

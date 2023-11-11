@@ -1,10 +1,11 @@
-/* export const urlBase = "https://129.146.68.51/aluno2-pfsii/agendamento";
-export const urlBase2 = "https://129.146.68.51/aluno2-pfsii/usuario"; */
-
-export const urlBase = "http://localhost:3008/agendamento";
-export const urlBase2 = "http://localhost:3007/usuario";
-export const urlBase3 = "http://localhost:3011/campo";
+export const urlBase = "http://localhost:3010/agendamento";
+export const urlBase2 = "http://localhost:3010/usuario";
+export const urlBase3 = "http://localhost:3010/campo";
 export const urlBase4 = "http://localhost:3010/doacao";
-export const urlBase5 = "http://localhost:3009/denuncia";
-
-
+export const urlBase5 = "http://localhost:3010/denuncia";
+export const urlBase6 = "http://localhost:3010/torneios";
+export const urlBase7 = "http://localhost:3010/time";
+export const urlBase8 = "http://localhost:3010/jogador";
+/* export const urlBase9 = "http://localhost:3010/usuario/login"; */
+export const urlBase10 = "http://localhost:3010/treinador";
+export const urlBase11 = "http://localhost:3010/placar";

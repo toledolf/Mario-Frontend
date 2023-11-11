@@ -1,13 +1,9 @@
-import { Alert } from "react-bootstrap";
+import "../telas/telaMenu.css";
+
 export function Cabecalho(props) {
   return (
-    <div>
-      <Alert
-        className="text-center mb-0"
-        variant="dark"
-      >
-        {props.texto}
-      </Alert>
+    <div className="cabecalho">
+      <h1>Sistema de Gerenciamento de Horários</h1>
     </div>
   );
 }

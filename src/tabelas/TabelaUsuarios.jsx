@@ -66,8 +66,10 @@ export default function TabelaUsuarios(props) {
       >
         <thead>
           <tr>
-            <th>Nome</th>
             <th>CPF</th>
+            <th>Senha</th>
+            <th>Nível de Usuário</th>
+            <th>Nome</th>
             <th>Data Nascimento</th>
             <th>Email</th>
             <th>Telefone</th>
@@ -83,8 +85,10 @@ export default function TabelaUsuarios(props) {
           {props.listaUsuarios?.map((usuario) => {
             return (
               <tr key={usuario.cpf}>
-                <td>{usuario.nome}</td>
                 <td>{usuario.cpf}</td>
+                <td>{usuario.senha}</td>
+                <td>{usuario.userLevel}</td>
+                <td>{usuario.nome}</td>
                 <td>{usuario.dataNasc}</td>
                 <td>{usuario.email}</td>
                 <td>{usuario.tel}</td>

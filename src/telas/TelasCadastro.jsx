@@ -10,8 +10,10 @@ export default function TelaCadastro(props) {
   const [usuarios, setUsuarios] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
   const [usuarioEdicao, setUsuarioEdicao] = useState({
-    nome: "",
     cpf: "",
+    senha: "",
+    userLevel: "",
+    nome: "",
     dataNasc: "",
     email: "",
     tel: "",

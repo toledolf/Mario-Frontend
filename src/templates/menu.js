@@ -27,6 +27,14 @@ export default function Menu(props) {
                 <NavDropdown.Item>Usuários</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
+              <LinkContainer to="/formJogador">
+                <NavDropdown.Item>Jogadores/Times</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormTime">
+                <NavDropdown.Item>Times</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
               <LinkContainer to="/FormDoacao">
                 <NavDropdown.Item>Doações</NavDropdown.Item>
               </LinkContainer>
@@ -35,8 +43,16 @@ export default function Menu(props) {
                 <NavDropdown.Item>Denúncias</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
+              <LinkContainer to="/FormTorneio">
+                <NavDropdown.Item>Torneios</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
               <LinkContainer to="/FormCampo">
                 <NavDropdown.Item>Campos</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormTreinador">
+                <NavDropdown.Item>Treinadores</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
             </NavDropdown>

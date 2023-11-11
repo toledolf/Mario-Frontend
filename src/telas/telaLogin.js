@@ -7,11 +7,11 @@ export default function TelaLogin() {
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
-  const senhaCorreta = "123";
-  const userCorreto = "alex";
-
   const enviar = (e) => {
     e.preventDefault();
+
+    const senhaCorreta = "123";
+    const userCorreto = "alex";
 
     if (senha === senhaCorreta && usuario === userCorreto) {
       navigate("/telaMenu");
@@ -19,7 +19,6 @@ export default function TelaLogin() {
       alert("Credenciais incorretas. Tente novamente.");
     }
   };
-  
 
   return (
     <div className="login-page">

@@ -1,12 +1,16 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TelaAgendamento from "./telas/TelaAgendamento";
 import TelasCadastro from "./telas/TelasCadastro";
 import TelaMenu from "./telas/TelaMenu";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Tela404 from "./telas/tela404";
 import TelaLogin from "./telas/telaLogin";
 import TelaDenuncia from "./telas/TelaDenuncia";
 import TelaDoacao from "./telas/TelaDoacao";
 import TelaCampo from "./telas/TelaCampo";
+import TelaTorneio from "./telas/TelaTorneio";
+import TelaJogador from "./telas/TelaJogador";
+import TelaTime from "./telas/TelaTime";
+import TelaTreinador from "./telas/telaTreinador";
 
 function App() {
   return (
@@ -30,6 +34,10 @@ function App() {
             element={<TelaDenuncia />}
           />
           <Route
+            path="/FormTorneio"
+            element={<TelaTorneio />}
+          />
+          <Route
             path="/FormDoacao"
             element={<TelaDoacao />}
           />
@@ -42,6 +50,18 @@ function App() {
             element={<TelasCadastro />}
           />
           <Route
+            path="/formJogador"
+            element={<TelaJogador />}
+          />
+          <Route
+            path="/formTreinador"
+            element={<TelaTreinador />}
+          />
+          <Route
+            path="/FormTime"
+            element={<TelaTime />}
+          />
+          <Route
             path="*"
             element={<Tela404 />}
           />
@@ -50,6 +70,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
