@@ -11,6 +11,7 @@ import TelaTorneio from "./telas/TelaTorneio";
 import TelaJogador from "./telas/TelaJogador";
 import TelaTime from "./telas/TelaTime";
 import TelaTreinador from "./telas/telaTreinador";
+import TelaPlacar from "./telas/telaPlacar";
 
 function App() {
   return (
@@ -60,6 +61,10 @@ function App() {
           <Route
             path="/FormTime"
             element={<TelaTime />}
+          />
+          <Route
+            path="/FormPlacar"
+            element={<TelaPlacar />}
           />
           <Route
             path="*"

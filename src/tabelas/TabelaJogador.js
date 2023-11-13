@@ -9,7 +9,7 @@ function TabelaJogador(props) {
       .then((listaJogadores) => {
         if (Array.isArray(listaJogadores)) {
           const resultadoBusca = listaJogadores.filter((jogador) =>
-            jogador.time.toLowerCase().includes(termoBusca)
+            jogador.posicao.toLowerCase().includes(termoBusca)
           );
           props.setJogadores(resultadoBusca);
         }
@@ -25,7 +25,7 @@ function TabelaJogador(props) {
               type="text"
               id="termoBusca"
               onChange={filtrar}
-              placeholder="Digite o JOGADOR..."
+              placeholder="Digite a Posição..."
             />
           </Col>
           <Col></Col>

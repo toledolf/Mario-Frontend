@@ -47,6 +47,10 @@ export default function Menu(props) {
                 <NavDropdown.Item>Torneios</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
+              <LinkContainer to="/formPlacar">
+                <NavDropdown.Item>Placar</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
               <LinkContainer to="/FormCampo">
                 <NavDropdown.Item>Campos</NavDropdown.Item>
               </LinkContainer>
