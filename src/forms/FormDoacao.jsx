@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Form, Row, Col, Container } from "react-bootstrap";
 import { urlBase2, urlBase4 } from "../utilitarios/definicoes";
 import BarraBusca2 from "./BarraBusca2";
-// import Home from "../home";
+import { IMaskInput } from "react-imask";
 
 export default function FormDoacao(props) {
   const [validado, setValidado] = useState(false);
@@ -96,7 +96,6 @@ export default function FormDoacao(props) {
             controlId="formDoacao.codigo"
           >
             <Form.Label>Usuário:</Form.Label>
-            {/* <Home/> */}
             <BarraBusca2
               placeHolder={"Informe um Usuário"}
               dados={listaUsuarios}
@@ -108,7 +107,6 @@ export default function FormDoacao(props) {
               }}
               valor={""}
             />
-            {/* {console.log(listaUsuarios)} */}
             <Form.Control.Feedback type="invalid">
               Por favor, insira o Usuário!
             </Form.Control.Feedback>
@@ -148,8 +146,10 @@ export default function FormDoacao(props) {
             <Form.Group className="mb-3">
               <Form.Label>Valor a ser doado</Form.Label>
               <Form.Control
-                type="int"
-                placeholder="R$ 100,00"
+                as={IMaskInput}
+                mask={"000.00"}
+                type="text"
+                placeholder="R$100"
                 value={doacao.valorDoado}
                 id="valorDoado"
                 onChange={manipularMudanca}
@@ -162,7 +162,7 @@ export default function FormDoacao(props) {
         </Row>
 
         <Row>
-          <Col md={2}>
+          <Col>
             <Button type="submit">Gravar</Button> {<p></p>}
             <Button
               type="button"

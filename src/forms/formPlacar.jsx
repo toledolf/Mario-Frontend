@@ -3,6 +3,7 @@ import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { urlBase11 } from "../utilitarios/definicoes";
 import { urlBase7 } from "../utilitarios/definicoes";
 import CaixaSelecao from "./CaixaSelecao";
+import { IMaskInput } from "react-imask";
 
 function FormPlacar(props) {
   const [validado, setValidado] = useState(false);
@@ -94,12 +95,11 @@ function FormPlacar(props) {
       onSubmit={manipularEnvio}
     >
       <Container className="mt-4 mb-4 d-flex justify-content-center">
-        <h1>Cadastro de Placares</h1>
+        <h1>Cadastro de Placares dos Jogos</h1>
       </Container>
       <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label>Id:</Form.Label>
             <Form.Control
               disabled
               type="number"
@@ -109,6 +109,7 @@ function FormPlacar(props) {
             />
           </Form.Group>
         </Col>
+        <Row />
 
         <Col>
           <Form.Label>Selecione o Time 1:</Form.Label>
@@ -120,17 +121,17 @@ function FormPlacar(props) {
             funccaoSelecao={setTimeSelecionado}
           ></CaixaSelecao>
           <Form.Control.Feedback type="invalid">
-            Por favor, informe um Treinador!
+            Por favor, informe o Time!
           </Form.Control.Feedback>
         </Col>
 
         <Col>
-          <Form.Label>Digite o Resultado do time 1:</Form.Label>
+          <Form.Label>Digite os gols do time 1:</Form.Label>
           <Form.Group>
             <Form.Control
               required
               type="number"
-              placeholder="Número de gols"
+              placeholder="Número de gols..."
               value={placar.resultado_time_id_1}
               id="resultado_time_id_1"
               onChange={manipularInput}
@@ -153,17 +154,17 @@ function FormPlacar(props) {
             funccaoSelecao={setTimeSelecionado}
           ></CaixaSelecao>
           <Form.Control.Feedback type="invalid">
-            Por favor, informe um Treinador!
+            Por favor, informe o Time!
           </Form.Control.Feedback>
         </Col>
 
         <Col>
-          <Form.Label>Digite o Resultado do time 2:</Form.Label>
+          <Form.Label>Digite os gols do time 2:</Form.Label>
           <Form.Group>
             <Form.Control
               required
               type="number"
-              placeholder="Número de gols"
+              placeholder="Número de gols..."
               value={placar.resultado_time_id_2}
               id="resultado_time_id_2"
               onChange={manipularInput}
@@ -175,18 +176,20 @@ function FormPlacar(props) {
         </Col>
 
         <Col>
-          <Form.Label>Digite a data:</Form.Label>
+          <Form.Label>Digite a data da partida:</Form.Label>
           <Form.Group>
             <Form.Control
+              as={IMaskInput}
+              mask={"00/00/0000"}
               required
-              type="date"
-              placeholder="Data do jogo"
+              type="text"
+              placeholder="00/00/0000"
               value={placar.data}
               id="data"
               onChange={manipularInput}
             />
             <Form.Control.Feedback type="invalid">
-              Por favor, insira a data de Fundação!
+              Por favor, insira a data da partida!
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -194,7 +197,7 @@ function FormPlacar(props) {
 
       <Row>
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />

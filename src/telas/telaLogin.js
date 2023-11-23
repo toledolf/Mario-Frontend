@@ -1,23 +1,83 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-
+import { urlBase12 } from "../utilitarios/definicoes";
+import { IMaskInput } from "react-imask";
 export default function TelaLogin() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
-  const enviar = (e) => {
+  let podeExibirErro = true;
+
+  const enviar = async (e) => {
     e.preventDefault();
 
-    const senhaCorreta = "123";
-    const userCorreto = "alex";
+    const usuarioData = {
+      usuario: {
+        cpf: usuario,
+      },
+      senha: senha,
+    };
 
-    if (senha === senhaCorreta && usuario === userCorreto) {
-      navigate("/telaMenu");
-    } else {
-      alert("Credenciais incorretas. Tente novamente.");
+    try {
+      const resposta = await fetch(urlBase12, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuarioData),
+      });
+
+      if (resposta.ok) {
+        const resultado = await resposta.json();
+
+        console.log(resultado);
+
+        if (resultado.status === 200) {
+          const userLevel = resultado.userLevel;
+
+
+          console.log(userLevel);
+
+          if (userLevel === 1) {
+            navigate("./telaMenuUser", {
+              state: {
+                userLevel: userLevel,
+              },
+            });
+          } else if (userLevel === 1000) {
+            navigate("./TelaMenu");
+          } else {
+            console.error("UserLevel desconhecido:", userLevel);
+          }
+        }
+      } else {
+        const mensagemErro = document.getElementById("mensagemErro");
+
+        if (podeExibirErro) {
+          mensagemErro.innerHTML =
+            "Login ou Senha inválidos. Por favor, tente novamente.";
+
+          podeExibirErro = false;
+
+          setTimeout(() => {
+            mensagemErro.innerHTML = "";
+            podeExibirErro = true;
+          }, 2000);
+        }
+      }
+    } catch (erro) {
+      console.error("Erro ao processar a requisição:", erro);
+
+      const mensagemErro = document.getElementById("mensagemErro");
+      mensagemErro.innerHTML =
+        "Erro ao processar a requisição. Por favor, tente novamente.";
     }
+  };
+
+  const redirecionar = () => {
+    navigate("../FormUsuario");
   };
 
   return (
@@ -25,9 +85,10 @@ export default function TelaLogin() {
       <div className="form">
         <h1 className="title text-primary">Login</h1>
         <form onSubmit={enviar}>
-          <input
+          <IMaskInput
+            mask="000.000.000-00"
             type="text"
-            placeholder="Usuário"
+            placeholder="Digite seu CPF"
             name="usuario"
             required
             value={usuario}
@@ -35,7 +96,7 @@ export default function TelaLogin() {
           />
           <input
             type="password"
-            placeholder="Senha"
+            placeholder="Digite sua senha"
             name="senha"
             required
             value={senha}
@@ -47,6 +108,21 @@ export default function TelaLogin() {
           >
             Logar
           </button>
+          <br />
+          <br />
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={redirecionar}
+          >
+            Cadastre-se
+          </button>
+          <br />
+          <br />
+          <div
+            id="mensagemErro"
+            className="text-danger"
+          ></div>
         </form>
       </div>
     </div>

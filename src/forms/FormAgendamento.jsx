@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { urlBase, urlBase2 } from "../utilitarios/definicoes";
 import BarraBusca from "./BarraBusca.js";
+import { IMaskInput } from "react-imask";
 
 function FormAgendamento(props) {
   const [validado, setValidado] = useState(false);
@@ -148,7 +149,10 @@ function FormAgendamento(props) {
           <Form.Group className="mb-3">
             <Form.Label>Informe uma Data:</Form.Label>
             <Form.Control
-              type="date"
+              as={IMaskInput}
+              mask="00/00/0000"
+              type="text"
+              placeholder="00/00/0000"
               value={agendamento.data}
               id="data"
               onChange={manipularInput}
@@ -188,7 +192,7 @@ function FormAgendamento(props) {
         </Row>
 
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />

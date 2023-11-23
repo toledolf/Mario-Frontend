@@ -9,6 +9,10 @@ export default function FormUsuarios(props) {
   const [usuario, setUsuario] = useState(props.usuario);
   const [userLevel, setUserLevel] = useState(1);
 
+  const acessoViaCadastro = props.acessoViaCadastro;
+
+  console.log("acessoViaCadastro:", acessoViaCadastro);
+
   function manipulaEvento(e) {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
@@ -84,6 +88,7 @@ export default function FormUsuarios(props) {
             >
               <Form.Label>Nome</Form.Label>
               <Form.Control
+                disabled={acessoViaCadastro}
                 required
                 type="text"
                 placeholder="Nome"
@@ -128,8 +133,10 @@ export default function FormUsuarios(props) {
             >
               <Form.Label>Data de Nascimento</Form.Label>
               <Form.Control
+                as={IMaskInput}
+                mask="00/00/0000"
                 required
-                type="date"
+                type="text"
                 value={usuario.dataNasc}
                 id="dataNasc"
                 onChange={manipulaEvento}
@@ -164,11 +171,11 @@ export default function FormUsuarios(props) {
               className="mb-3"
               controlId="1"
             >
-              <Form.Label>Escolha um nivel de acesso:</Form.Label>
+              <Form.Label>Nível de acesso padrão (1)</Form.Label>
               <Form.Control
                 disabled
                 type="number"
-                value={usuario.userLevel = userLevel}
+                value={(usuario.userLevel = userLevel)}
                 id="userLevel"
                 onChange={manipulaEvento}
               />

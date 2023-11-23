@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { urlBase5, urlBase2 } from "../utilitarios/definicoes";
 import BarraBusca from "./BarraBusca.js";
+import { IMaskInput } from "react-imask";
 
 function FormDenuncia(props) {
   const [validado, setValidado] = useState(false);
@@ -97,15 +98,15 @@ function FormDenuncia(props) {
       onSubmit={manipularEnvio}
     >
       <Container className="mt-4 mb-4 d-flex justify-content-center">
-        <h1>Cadastro de Denuncias</h1>
+        <h1>Cadastro de Denúncias</h1>
       </Container>
       <Row>
         <Col>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-4">
             <Form.Label>Usuário:</Form.Label>
             <BarraBusca
               placeHolder={
-                "Informe um Usuário ou selecione o CPF 000.000.000-00 para uma denuncia Anônima"
+                "Informe um Usuário ou selecione o CPF 000.000.000-00 para uma denúncia Anônima"
               }
               dados={ListaUsuarios}
               campoChave={"cpf"}
@@ -118,11 +119,9 @@ function FormDenuncia(props) {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-      </Row>
-      <Row>
+        <Row/>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label>Id:</Form.Label>
             <Form.Control
               disabled
               type="number"
@@ -132,7 +131,9 @@ function FormDenuncia(props) {
             />
           </Form.Group>
         </Col>
+      </Row>
 
+      <Row>
         <Col>
           <Form.Label>Selecione um Campo:</Form.Label>
           <Form.Select
@@ -159,33 +160,37 @@ function FormDenuncia(props) {
           >
             <Form.Label>Data do Ocorrido:</Form.Label>
             <Form.Control
+              as={IMaskInput}
+              mask={"00/00/0000"}
+              placeholder="00/00/0000"
               required
-              type="date"
+              type="text"
               value={denuncia.data}
               id="data"
               onChange={manipularInput}
             />
-
             <Form.Control.Feedback type="invalid">
               Por favor, informe a data!
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+      </Row>
 
+      <Row>
         <Col>
           <Form.Group
             className="mb-3"
             controlId="dataNasc"
           >
-            <Form.Label>Data do Ocorrido:</Form.Label>
+            <Form.Label>Horário do Ocorrido:</Form.Label>
             <Form.Control
               required
               type="time"
+              placeholder="00:00"
               value={denuncia.horario}
               id="horario"
               onChange={manipularInput}
             />
-
             <Form.Control.Feedback type="invalid">
               Por favor, informe a data!
             </Form.Control.Feedback>
@@ -200,44 +205,44 @@ function FormDenuncia(props) {
             <Form.Control
               required
               type="text"
+              placeholder="Nome do Infrator"
               value={denuncia.nomeInfrator}
               id="nomeInfrator"
               onChange={manipularInput}
             />
-
             <Form.Control.Feedback type="invalid">
               Por favor, informe a data!
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+      </Row>
 
-        <Row>
-          <Col>
-            <Form.Group
-              className="mb-3"
-              controlId="dataNasc"
-            >
-              <Form.Label>Descreva a Infração:</Form.Label>
-              <Form.Control
-                required
-                type="textarea"
-                style={{ width: "300px", height: "150px" }}
-                value={denuncia.dadosDenuncia}
-                id="dadosDenuncia"
-                onChange={manipularInput}
-              />
-
-              <Form.Control.Feedback type="invalid">
-                Por favor, informe a data!
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-        </Row>
+      <Row>
+        <Col>
+          <Form.Group
+            className="mb-3"
+            controlId="dataNasc"
+          >
+            <Form.Label style={{ textAlign: "center" }}>Descreva a Infração:</Form.Label>
+            <Form.Control
+              required
+              as="textarea"
+              placeholder="Descreva a Infração. Seja objetivo!"
+              style={{ width: "600px", height: "180px", margin: "auto" }}
+              value={denuncia.dadosDenuncia}
+              id="dadosDenuncia"
+              onChange={manipularInput}
+            />
+            <Form.Control.Feedback type="invalid">
+              Por favor, informe a data!
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
       </Row>
 
       <Row>
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />

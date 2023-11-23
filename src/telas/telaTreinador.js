@@ -1,3 +1,4 @@
+
 import Pagina from "../templates/pagina.js";
 import { useState, useEffect } from "react";
 import { urlBase10 } from "../utilitarios/definicoes";
@@ -6,6 +7,7 @@ import TabelaTreinador from "../tabelas/TabelaTreinador.js";
 import FormTreinador from "../forms/formTreinador.jsx";
 
 function TelaTreinador(props) {
+
   const [mostraTabela, setMostraTabela] = useState(true);
   const [treinadores, setTreinadores] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);

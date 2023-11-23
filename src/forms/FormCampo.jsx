@@ -131,7 +131,7 @@ function FormCampo(props) {
 
       <Row>
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />

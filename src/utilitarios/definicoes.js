@@ -6,6 +6,6 @@ export const urlBase5 = "http://localhost:3010/denuncia";
 export const urlBase6 = "http://localhost:3010/torneios";
 export const urlBase7 = "http://localhost:3010/time";
 export const urlBase8 = "http://localhost:3010/jogador";
-/* export const urlBase9 = "http://localhost:3010/usuario/login"; */
 export const urlBase10 = "http://localhost:3010/treinador";
 export const urlBase11 = "http://localhost:3010/placar";
+export const urlBase12 = "http://localhost:3010/login";

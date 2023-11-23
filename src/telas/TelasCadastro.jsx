@@ -6,6 +6,7 @@ import { Alert, Container } from "react-bootstrap";
 import { urlBase2 } from "../utilitarios/definicoes";
 
 export default function TelaCadastro(props) {
+  const acessoViaCadastro = props.acessoViaCadastro;
   const [exibirTabela, setExibirTabela] = useState(true);
   const [usuarios, setUsuarios] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -74,6 +75,7 @@ export default function TelaCadastro(props) {
             exibirTabela={setExibirTabela}
             editar={prepararTela}
             deletar={deletarUsuario}
+            acessoViaCadastro={acessoViaCadastro}
           />
         ) : (
           <FormUsuarios
@@ -84,6 +86,7 @@ export default function TelaCadastro(props) {
             modoEdicao={modoEdicao}
             setModoEdicao={setModoEdicao}
             usuario={usuarioEdicao}
+            acessoViaCadastro={acessoViaCadastro}
           />
         )}
       </Container>

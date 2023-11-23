@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { urlBase6, urlBase2 } from "../utilitarios/definicoes";
 import BarraBusca from "./BarraBusca.js";
+import { IMaskInput } from "react-imask";
 
 function FormTorneio(props) {
   const [validado, setValidado] = useState(false);
@@ -155,8 +156,11 @@ function FormTorneio(props) {
           >
             <Form.Label>Data do Torneio:</Form.Label>
             <Form.Control
+              as={IMaskInput}
+              mask={"00/00/0000"}
+              placeholder="00/00/0000"
               required
-              type="date"
+              type="text"
               value={torneio.data}
               id="data"
               onChange={manipularInput}
@@ -177,13 +181,19 @@ function FormTorneio(props) {
             <Form.Control
               required
               type="number"
+              placeholder="Digite aqui..."
+              min={4}
+              max={8}
               value={torneio.numEquipes}
               id="numEquipes"
               onChange={manipularInput}
+              isInvalid={validado && !/[468]/.test(torneio.numEquipes)}
             />
-
+            <Form.Text className="text-muted">
+              O número de equipes deve ser 4, 6 ou 8
+            </Form.Text>
             <Form.Control.Feedback type="invalid">
-              Por favor, informe o número de equipes!
+              Por favor, informe um número válido de equipes!
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -191,7 +201,7 @@ function FormTorneio(props) {
 
       <Row>
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />

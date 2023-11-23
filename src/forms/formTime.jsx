@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { urlBase7, urlBase2, urlBase10 } from "../utilitarios/definicoes";
 import CaixaSelecao from "./CaixaSelecao";
+import { IMaskInput } from "react-imask";
 
 function FormTime(props) {
   const [validado, setValidado] = useState(false);
@@ -139,12 +140,14 @@ function FormTime(props) {
         </Col>
 
         <Col>
-          <Form.Label>Digite a Fundação:</Form.Label>
+          <Form.Label>Digite a data Fundação:</Form.Label>
           <Form.Group>
             <Form.Control
+              as={IMaskInput}
+              mask="00/00/0000"
               required
-              type="date"
-              placeholder="Fundacao"
+              type="text"
+              placeholder="00/00/0000"
               value={time.fundacao}
               id="fundacao"
               onChange={manipularInput}
@@ -172,7 +175,7 @@ function FormTime(props) {
 
       <Row>
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />

@@ -70,7 +70,7 @@ function TelaDenuncia(props) {
         variant={"secondary"}
         className="text-center m-3"
       >
-        Cadastro de Denuncias
+        Cadastro de Denúncias
       </Alert>
       {mostraTabela ? (
         <TabelaDenuncia

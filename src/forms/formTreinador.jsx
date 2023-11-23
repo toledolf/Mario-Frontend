@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { urlBase10 } from "../utilitarios/definicoes";
+import { IMaskInput } from "react-imask";
 
 function FormTreinador(props) {
   const [validado, setValidado] = useState(false);
@@ -88,9 +89,8 @@ function FormTreinador(props) {
             />
           </Form.Group>
         </Col>
-
         <Col>
-          <Form.Label>Digite o nome do Time:</Form.Label>
+          <Form.Label>Digite o nome do Treinador:</Form.Label>
           <Form.Group>
             <Form.Control
               required
@@ -105,14 +105,13 @@ function FormTreinador(props) {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-
         <Col>
           <Form.Label>Digite a Cidade:</Form.Label>
           <Form.Group>
             <Form.Control
               required
               type="text"
-              placeholder="Cidade"
+              placeholder="Exemplo: Belo Horizonte"
               value={treinador.cidade}
               id="cidade"
               onChange={manipularInput}
@@ -122,14 +121,15 @@ function FormTreinador(props) {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-
+      </Row>
+      <Row>
         <Col>
-          <Form.Label>Digite a Email:</Form.Label>
+          <Form.Label>Digite o Email:</Form.Label>
           <Form.Group>
             <Form.Control
               required
               type="email"
-              placeholder="Email"
+              placeholder="fulano@example.com"
               value={treinador.email}
               id="email"
               onChange={manipularInput}
@@ -140,12 +140,14 @@ function FormTreinador(props) {
           </Form.Group>
         </Col>
         <Col>
-          <Form.Label>Digite a Telefone:</Form.Label>
+          <Form.Label>Digite o Telefone:</Form.Label>
           <Form.Group>
             <Form.Control
+              as={IMaskInput}
+              mask={"(00) 00000-0000"}
               required
-              type="tel"
-              placeholder="Telefone"
+              type="text"
+              placeholder="(00) 00000-0000"
               value={treinador.telefone}
               id="telefone"
               onChange={manipularInput}
@@ -155,41 +157,46 @@ function FormTreinador(props) {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-        <Col>
-          <Form.Label>Digite a Descricão:</Form.Label>
-          <Form.Group>
-            <Form.Control
-              required
-              type="textarea"
-              placeholder="Descricão"
-              value={treinador.descricao}
-              id="descricao"
-              onChange={manipularInput}
-            />
-            <Form.Control.Feedback type="invalid">
-              Por favor, insira o telefone!
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
-      </Row>
-
-      <Row>
         <Row>
-          <Col md={5}>
-            <Button type="submit">Enviar informações</Button>
-            <div>
-              <br />
-            </div>
-            <Button
-              type="button"
-              onClick={() => {
-                props.mostraTabela(true);
-              }}
+          <Col className="mt-3">
+            <Form.Group
+              className="mb-3"
+              controlId="descricao"
             >
-              Voltar
-            </Button>
+              <Form.Label style={{ textAlign: "center" }}>
+                Descreva a carreira do Treinador:
+              </Form.Label>
+              <Form.Control
+                required
+                as="textarea"
+                placeholder="Descreva sua carreira. Seja objetivo!"
+                style={{ width: "600px", height: "180px", margin: "auto" }}
+                value={treinador.descricao}
+                id="descricao"
+                onChange={manipularInput}
+              />
+              <Form.Control.Feedback type="invalid">
+                Por favor, informe a data!
+              </Form.Control.Feedback>
+            </Form.Group>
           </Col>
         </Row>
+      </Row>
+      <Row>
+        <Col className="mt-3">
+          <Button type="submit">Enviar informações</Button>
+          <div>
+            <br />
+          </div>
+          <Button
+            type="button"
+            onClick={() => {
+              props.mostraTabela(true);
+            }}
+          >
+            Voltar
+          </Button>
+        </Col>
       </Row>
     </Form>
   );

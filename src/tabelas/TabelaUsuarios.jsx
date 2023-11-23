@@ -3,7 +3,7 @@ import { Button, Table, Container, Form, Row, Col } from "react-bootstrap";
 import { urlBase2 } from "../utilitarios/definicoes";
 
 export default function TabelaUsuarios(props) {
-  // const [usuarios, setUsuarios] = useState(props.listaUsuarios)
+  const acessoViaCadastro = props.acessoViaCadastro;
 
   function filtrar(e) {
     const termoBusca = e.currentTarget.value;
@@ -104,6 +104,7 @@ export default function TabelaUsuarios(props) {
                         props.deletar(usuario);
                       }
                     }}
+                    disabled={acessoViaCadastro}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -122,6 +123,7 @@ export default function TabelaUsuarios(props) {
                         props.editar(usuario);
                       }
                     }}
+                    disabled={acessoViaCadastro}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

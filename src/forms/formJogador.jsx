@@ -146,19 +146,24 @@ function FormAgendamento(props) {
         </Col>
 
         <Col>
-          <Form.Group className="mb-3">
-            <Form.Label>Informe a posição:</Form.Label>
-            <Form.Control
-              type="text"
-              value={jogador.posicao}
-              id="posicao"
-              onChange={manipularInput}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Por favor, insira a posição!
-            </Form.Control.Feedback>
-          </Form.Group>
+          <Form.Label>Selecione uma posição:</Form.Label>
+          <Form.Select
+            aria-label="Selecione uma Posição..."
+            value={jogador.posicao}
+            id="posicao"
+            onChange={manipularInput}
+          >
+            <option value="Erro! Seleção não efetivada!">Selecione uma Posição...</option>
+            <option value="Goleiro">Goleiro</option>
+            <option value="Zagueiro">Zagueiro</option>
+            <option value="Lateral">Lateral</option>
+            <option value="Meia">Meia</option>
+            <option value="Volante">Volante</option>
+            <option value="Atacante">Atacante</option>
+          </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            Por favor, informe uma Posição!
+          </Form.Control.Feedback>
         </Col>
       </Row>
 
@@ -170,7 +175,7 @@ function FormAgendamento(props) {
         </Row>
 
         <Row>
-          <Col md={5}>
+          <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />
