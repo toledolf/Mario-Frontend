@@ -1,13 +1,15 @@
-
+import React from "react";
 import Pagina from "../templates/pagina.js";
+import PaginaUser from "../templates/paginaUser";
 import { useState, useEffect } from "react";
 import { urlBase10 } from "../utilitarios/definicoes";
 import { Alert } from "react-bootstrap";
 import TabelaTreinador from "../tabelas/TabelaTreinador.js";
 import FormTreinador from "../forms/formTreinador.jsx";
+import { useUser } from "../userContext";
 
 function TelaTreinador(props) {
-
+  const { userLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [treinadores, setTreinadores] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -19,6 +21,8 @@ function TelaTreinador(props) {
     telefone: "",
     descricao: "",
   });
+
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
 
   function prepararParaEdicao(treinador) {
     setModoEdicao(true);
@@ -62,7 +66,7 @@ function TelaTreinador(props) {
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Alert
         variant={"secondary"}
         className="text-center m-3"
@@ -90,7 +94,7 @@ function TelaTreinador(props) {
           />
         </div>
       )}
-    </Pagina>
+    </ComponentePagina>
   );
 }
 

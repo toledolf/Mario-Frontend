@@ -1,10 +1,9 @@
 // import { useState } from "react";
 import { Button, Table, Container, Form, Row, Col } from "react-bootstrap";
 import { urlBase2 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 export default function TabelaUsuarios(props) {
-  const acessoViaCadastro = props.acessoViaCadastro;
-
   function filtrar(e) {
     const termoBusca = e.currentTarget.value;
     fetch(urlBase2, { method: "GET" })
@@ -20,6 +19,10 @@ export default function TabelaUsuarios(props) {
         }
       });
   }
+
+  const { userLevel } = useUser();
+
+  console.log("Login bem-sucedido. UserLevel:", userLevel);
 
   return (
     <Container className="m-4">
@@ -99,12 +102,12 @@ export default function TabelaUsuarios(props) {
                 <td>{usuario.jogador}</td>
                 <td>
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja excluir?")) {
                         props.deletar(usuario);
                       }
                     }}
-                    disabled={acessoViaCadastro}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -118,12 +121,12 @@ export default function TabelaUsuarios(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja atualizar?")) {
                         props.editar(usuario);
                       }
                     }}
-                    disabled={acessoViaCadastro}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

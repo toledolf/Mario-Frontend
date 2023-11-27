@@ -1,5 +1,6 @@
 import { Container, Table, Button, Row, Col, FormControl } from "react-bootstrap";
 import { urlBase5 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 function TabelaDenuncia(props) {
   function filtrar(e) {
@@ -15,6 +16,10 @@ function TabelaDenuncia(props) {
         }
       });
   }
+
+  const { userLevel } = useUser();
+
+  console.log("Login bem-sucedido. UserLevel:", userLevel);
 
   return (
     <Container>
@@ -62,6 +67,7 @@ function TabelaDenuncia(props) {
                 <td>{denuncia.cpfUsuario.cpf}</td>
                 <td>
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       props.editarCampo(denuncia);
                     }}
@@ -78,6 +84,7 @@ function TabelaDenuncia(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja realmente deletar esse campo?"))
                         props.deletarCampo(denuncia);

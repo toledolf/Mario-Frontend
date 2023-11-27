@@ -1,9 +1,9 @@
 // import { useState } from "react";
 import { Button, Table, Container, Form, Row, Col } from "react-bootstrap";
 import { urlBase4 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 export default function TabelaDoacao(props) {
-  // const [usuarios, setDoacoes] = useState(props.listaDoacoes)
 
   function filtrar(e) {
     const termoBusca = e.currentTarget.value;
@@ -20,6 +20,10 @@ export default function TabelaDoacao(props) {
         }
       });
   }
+
+  const { userLevel } = useUser();
+
+  console.log("Login bem-sucedido. UserLevel:", userLevel);
 
   return (
     <Container className="m-4">
@@ -78,6 +82,7 @@ export default function TabelaDoacao(props) {
                 <td>{doacao.cpfUsuario}</td>
                 <td>
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja excluir?")) {
                         props.deletar(doacao);

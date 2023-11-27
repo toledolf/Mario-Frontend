@@ -1,17 +1,12 @@
 import { useState } from "react";
-import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, Alert } from "react-bootstrap";
 import { IMaskInput } from "react-imask";
 import { urlBase2 } from "../utilitarios/definicoes";
 
 export default function FormUsuarios(props) {
-  // const [atualizando, setAtualizando] = useState(false);
   const [validado, setValidate] = useState(false);
   const [usuario, setUsuario] = useState(props.usuario);
   const [userLevel, setUserLevel] = useState(1);
-
-  const acessoViaCadastro = props.acessoViaCadastro;
-
-  console.log("acessoViaCadastro:", acessoViaCadastro);
 
   function manipulaEvento(e) {
     const elemForm = e.currentTarget;
@@ -73,6 +68,12 @@ export default function FormUsuarios(props) {
     evento.stopPropagation();
   }
 
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   return (
     <Container className="bg-light">
       <Form
@@ -81,6 +82,25 @@ export default function FormUsuarios(props) {
         onSubmit={manipulaSubmissao}
       >
         <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Preencha os campos obrigatórios e conforme necessário.</p>
+              <p>Dica 2: Seu nível de acesso por padrão será "1", podendo ser alterado por um adminstrador.</p>
+              <p>Dica 3: Enviando os dados (corretos), você será registrado e estará apto a logar no sistema.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
+        <Row>
           <Col>
             <Form.Group
               className="mb-3"
@@ -88,7 +108,6 @@ export default function FormUsuarios(props) {
             >
               <Form.Label>Nome</Form.Label>
               <Form.Control
-                disabled={acessoViaCadastro}
                 required
                 type="text"
                 placeholder="Nome"
@@ -155,7 +174,7 @@ export default function FormUsuarios(props) {
               <Form.Label>Escolha uma senha:</Form.Label>
               <Form.Control
                 required
-                type="number"
+                type="password"
                 value={usuario.senha}
                 id="senha"
                 onChange={manipulaEvento}

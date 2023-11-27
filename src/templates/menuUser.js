@@ -2,6 +2,11 @@ import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function MenuUser(props) {
+  const handleLogout = () => {
+    localStorage.removeItem("userLevel");
+    window.location.href = "/";
+  };
+
   return (
     <Navbar
       bg="light"
@@ -15,7 +20,7 @@ export default function MenuUser(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <NavDropdown
-              title="MenuUser"
+              title="Menu Usuário"
               id="basic-nav-dropdown"
             >
               <NavDropdown.Divider />
@@ -24,7 +29,7 @@ export default function MenuUser(props) {
               </LinkContainer>
               <NavDropdown.Divider />
               <LinkContainer to="/FormUsuario">
-                <NavDropdown.Item>Usuários</NavDropdown.Item>
+                <NavDropdown.Item>Usuários/Cadastro</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
               <LinkContainer to="/formJogador">
@@ -54,7 +59,7 @@ export default function MenuUser(props) {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="/">Sair</Nav.Link>
+            <Nav.Link onClick={handleLogout}>Sair</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Row, Col, Button, Container } from "react-bootstrap";
+import { Form, Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { urlBase5, urlBase2 } from "../utilitarios/definicoes";
 import BarraBusca from "./BarraBusca.js";
 import { IMaskInput } from "react-imask";
@@ -80,6 +80,12 @@ function FormDenuncia(props) {
     evento.stopPropagation();
   }
 
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   const [usuarioSelecionado, setUsuarioSelecionado] = useState({});
   const [ListaUsuarios, setListaUsuarios] = useState([]);
 
@@ -100,6 +106,26 @@ function FormDenuncia(props) {
       <Container className="mt-4 mb-4 d-flex justify-content-center">
         <h1>Cadastro de Denúncias</h1>
       </Container>
+      <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Use o CPF 000.000.000-00 para uma denúnica Anônima.</p>
+              <p>Dica 2: Selecione o campo, data e o horário da ocorrência .</p>
+              <p>Dica 3: Informe o possível nome do Infrator.</p>
+              <p>Após o envio, a adminstração irá analisar a denúncia.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
       <Row>
         <Col>
           <Form.Group className="mb-4">

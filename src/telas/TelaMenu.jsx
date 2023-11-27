@@ -10,7 +10,7 @@ export default function TelaMenu(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsPrimeiraImagem((prevIsPrimeiraImagem) => !prevIsPrimeiraImagem);
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);

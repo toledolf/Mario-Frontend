@@ -1,5 +1,6 @@
 import { Container, Table, Button, Row, Col, FormControl } from "react-bootstrap";
 import { urlBase8 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 function TabelaJogador(props) {
   function filtrar(e) {
@@ -15,6 +16,10 @@ function TabelaJogador(props) {
         }
       });
   }
+
+  const { userLevel } = useUser();
+
+  console.log("Login bem-sucedido. UserLevel:", userLevel);
 
   return (
     <Container>
@@ -51,6 +56,7 @@ function TabelaJogador(props) {
                 <td>{jogador.cpfJogador}</td>
                 <td>
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       props.editarJogador(jogador);
                     }}
@@ -67,6 +73,7 @@ function TabelaJogador(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja realmente deletar esse jogador?"))
                         props.deletarJogador(jogador);

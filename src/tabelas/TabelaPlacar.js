@@ -1,5 +1,6 @@
 import { Container, Table, Button, Row, Col, FormControl } from "react-bootstrap";
 import { urlBase11 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 function TabelaPlacar(props) {
   function filtrar(e) {
@@ -15,6 +16,10 @@ function TabelaPlacar(props) {
         }
       });
   }
+
+  const userLevel = useUser();
+
+  console.log("Login bem-sucedido. UserLevel:", userLevel);
 
   return (
     <Container>
@@ -60,6 +65,7 @@ function TabelaPlacar(props) {
                 <td>{placar.data}</td>
                 <td>
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       props.editarPlacar(placar);
                     }}
@@ -76,6 +82,7 @@ function TabelaPlacar(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja realmente deletar esse placar?"))
                         props.deletarPlacar(placar);
@@ -99,6 +106,7 @@ function TabelaPlacar(props) {
         </tbody>
       </Table>
       <Button
+        disabled={userLevel === 1}
         onClick={() => {
           props.mostraTabela(false);
         }}

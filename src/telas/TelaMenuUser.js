@@ -4,13 +4,13 @@ import Imagem2 from "../img/prefeitura2.png";
 import "./telaMenu.css";
 import { useState, useEffect } from "react";
 
-export default function TelaMenu(props) {
+export default function TelaMenu() {
   const [isPrimeiraImagem, setIsPrimeiraImagem] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsPrimeiraImagem((prevIsPrimeiraImagem) => !prevIsPrimeiraImagem);
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);

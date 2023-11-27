@@ -1,5 +1,6 @@
 import { Container, Table, Button, Row, Col, FormControl } from "react-bootstrap";
 import { urlBase } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 function TabelaAgendamento(props) {
   function filtrar(e) {
@@ -15,6 +16,10 @@ function TabelaAgendamento(props) {
         }
       });
   }
+
+  const userLevel = useUser();
+
+  console.log("userLevel quando mudou:", userLevel);
 
   return (
     <Container>
@@ -58,6 +63,7 @@ function TabelaAgendamento(props) {
                 <td>{agendamento.cpfUsuario}</td>
                 <td>
                   <Button
+                    disabled={userLevel.userLevel === 1}
                     onClick={() => {
                       props.editarAgendamento(agendamento);
                     }}
@@ -74,6 +80,7 @@ function TabelaAgendamento(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel.userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja realmente deletar esse agendamento?"))
                         props.deletarAgendamento(agendamento);

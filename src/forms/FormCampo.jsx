@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Row, Col, Button, Container, FormSelect } from "react-bootstrap";
+import { Form, Row, Col, Button, Container, FormSelect, Alert } from "react-bootstrap";
 import { urlBase3 } from "../utilitarios/definicoes";
 
 function FormCampo(props) {
@@ -63,6 +63,12 @@ function FormCampo(props) {
     evento.stopPropagation();
   }
 
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   return (
     <Form
       noValidate
@@ -72,6 +78,24 @@ function FormCampo(props) {
       <Container className="mt-4 mb-4 d-flex justify-content-center">
         <h1>Cadastro de Campos</h1>
       </Container>
+      <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Essa área só pode ser alterada por um administrador.</p>
+              <p>Dica 2: As alterações terão efeito imediatamente para todos os usuários do sistema.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
       <Row>
         <Col>
           <Form.Group className="mb-3">

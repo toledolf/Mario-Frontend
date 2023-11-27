@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
 import { urlBase12 } from "../utilitarios/definicoes";
 import { IMaskInput } from "react-imask";
+import "./login.css";
+
 export default function TelaLogin() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
@@ -30,24 +31,19 @@ export default function TelaLogin() {
       });
 
       if (resposta.ok) {
-        const resultado = await resposta.json();
+        const result = await resposta.json();
 
-        console.log(resultado);
+        localStorage.setItem("userLevel", result.userLevel.toString());
+        console.log(localStorage.getItem("userLevel"));
 
-        if (resultado.status === 200) {
-          const userLevel = resultado.userLevel;
-
-
-          console.log(userLevel);
+        if (result.status === 200) {
+          const userLevel = result.userLevel;
 
           if (userLevel === 1) {
-            navigate("./telaMenuUser", {
-              state: {
-                userLevel: userLevel,
-              },
-            });
+            navigate("/telaMenuUser");
+            console.log(localStorage.getItem("userLevel"));
           } else if (userLevel === 1000) {
-            navigate("./TelaMenu");
+            navigate("/TelaMenu");
           } else {
             console.error("UserLevel desconhecido:", userLevel);
           }
@@ -72,12 +68,8 @@ export default function TelaLogin() {
 
       const mensagemErro = document.getElementById("mensagemErro");
       mensagemErro.innerHTML =
-        "Erro ao processar a requisição. Por favor, tente novamente.";
+        "Erro ao processar a requisição. Por favor, tente novamente mais tarde.";
     }
-  };
-
-  const redirecionar = () => {
-    navigate("../FormUsuario");
   };
 
   return (
@@ -107,15 +99,6 @@ export default function TelaLogin() {
             type="submit"
           >
             Logar
-          </button>
-          <br />
-          <br />
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={redirecionar}
-          >
-            Cadastre-se
           </button>
           <br />
           <br />

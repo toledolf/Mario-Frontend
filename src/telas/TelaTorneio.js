@@ -1,15 +1,15 @@
 import React from "react";
-
 import Pagina from "../templates/pagina.js";
+import PaginaUser from "../templates/paginaUser";
 import { useState, useEffect } from "react";
 import { urlBase6 } from "../utilitarios/definicoes.js";
 import { Alert } from "react-bootstrap";
-
 import TabelaTorneio from "../tabelas/TabelaTorneio.js";
-
 import FormTorneio from "../forms/formTorneio.jsx";
+import { useUser } from "../userContext";
 
 function TelaTorneio(props) {
+  const { userLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [torneios, setTorneios] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -21,31 +21,13 @@ function TelaTorneio(props) {
     cpfUsuario: "",
   });
 
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
+
   function prepararParaEdicao(torneio) {
     setModoEdicao(true);
     setTorneioEmEdicao(torneio);
     setMostraTabela(false);
   }
-
-  /* function apagarCampo(campo) {
-    fetch(urlBase3, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(campo),
-    }).then((resposta) => {
-      if (resposta.ok) {
-        window.alert("O campo foi deletado com sucesso!");
-        window.location.reload();
-        return resposta.json();
-      } else {
-        window.alert(
-          "Campo associado a um agendamento. Não foi possível deletar. Você pode apenas editar o campo."
-        );
-        window.location.reload();
-        return resposta.json();
-      }
-    });
-  } */
 
   useEffect(() => {
     fetch(urlBase6, {
@@ -63,7 +45,7 @@ function TelaTorneio(props) {
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Alert
         variant={"secondary"}
         className="text-center m-3"
@@ -91,7 +73,7 @@ function TelaTorneio(props) {
           />
         </div>
       )}
-    </Pagina>
+    </ComponentePagina>
   );
 }
 

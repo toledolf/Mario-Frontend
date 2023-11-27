@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Row, Col, Button, Container } from "react-bootstrap";
+import { Form, Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { urlBase7, urlBase2, urlBase10 } from "../utilitarios/definicoes";
 import CaixaSelecao from "./CaixaSelecao";
 import { IMaskInput } from "react-imask";
@@ -71,6 +71,14 @@ function FormTime(props) {
     evento.stopPropagation();
   }
 
+  
+
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   const [treinadorSelecionado, setTreinadorSelecionado] = useState({});
   const [listaTreinadores, setListaTreinadores] = useState([]);
 
@@ -91,6 +99,27 @@ function FormTime(props) {
       <Container className="mt-4 mb-4 d-flex justify-content-center">
         <h1>Cadastro de Times</h1>
       </Container>
+
+      <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Preencha os campos corretamente.</p>
+              <p>Dica 2: Selecione um Treinador da lista.</p>
+              <p>Dica 3: Clique no botão Enviar para registrar.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
+      
       <Row>
         <Col>
           <Form.Group className="mb-3">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Row, Col, Button, Container } from "react-bootstrap";
+import { Form, Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { urlBase, urlBase2 } from "../utilitarios/definicoes";
 import BarraBusca from "./BarraBusca.js";
 import { IMaskInput } from "react-imask";
@@ -74,6 +74,12 @@ function FormAgendamento(props) {
     evento.stopPropagation();
   }
 
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   const [usuarioSelecionado, setUsuarioSelecionado] = useState({});
   const [ListaUsuarios, setListaUsuarios] = useState([]);
 
@@ -94,6 +100,26 @@ function FormAgendamento(props) {
       <Container className="mt-4 mb-4 d-flex justify-content-center">
         <h1>Agendar Espaço no Sistema</h1>
       </Container>
+      <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Selecione o SEU usuário para agendar o campo, caso contrário, o agendamento será cancelado por um coordenador.</p>
+              <p>Dica 2: Informe o campo que será agendado e a data.</p>
+              <p>Dica 3: Informe o horário que o campo será agendado.</p>
+              <p>Sua reserva estará aprovada quando o envio for efetuado.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
       <Row>
         <Col>
           <Form.Group className="mb-3">

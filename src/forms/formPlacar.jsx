@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Row, Col, Button, Container } from "react-bootstrap";
+import { Form, Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { urlBase11 } from "../utilitarios/definicoes";
 import { urlBase7 } from "../utilitarios/definicoes";
 import CaixaSelecao from "./CaixaSelecao";
@@ -77,6 +77,12 @@ function FormPlacar(props) {
     evento.stopPropagation();
   }
 
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   const [timeSelecionado, setTimeSelecionado] = useState({});
   const [listaTimes, setListaTimes] = useState([]);
 
@@ -97,6 +103,24 @@ function FormPlacar(props) {
       <Container className="mt-4 mb-4 d-flex justify-content-center">
         <h1>Cadastro de Placares dos Jogos</h1>
       </Container>
+      <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Insira os times e os gols de cada.</p>
+              <p>Dica 2: Selecione a data do jogo.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
       <Row>
         <Col>
           <Form.Group className="mb-3">

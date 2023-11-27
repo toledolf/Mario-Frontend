@@ -1,11 +1,14 @@
 import FormDoacao from "../forms/FormDoacao";
 import Pagina from "../templates/pagina";
 import TabelaDoacao from "../tabelas/TabelaDoacao";
+import PaginaUser from "../templates/paginaUser";
 import { useState, useEffect } from "react";
 import { Alert, Container } from "react-bootstrap";
 import { urlBase4 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 export default function TelaDoacao(props) {
+  const { userLevel } = useUser();
   const [exibirTabela, setExibirTabela] = useState(true);
   const [doacoes, setDoacoes] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -16,27 +19,13 @@ export default function TelaDoacao(props) {
     cpfUsuario: "",
   });
 
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
+
   function prepararTela(doacao) {
     setModoEdicao(true);
     setUsuarioEdicao(doacao);
     setExibirTabela(false);
   }
-
-  // function excluir(doacao){
-
-  //     fetch(urlBase + '/doacoes',{
-  //         method: "DELETE",
-  //         headers: {
-  //             "Content-Type":"application/json"
-  //         },
-  //         body: JSON.stringify(doacao)
-  //     })
-  //     .then((resposta) =>{
-  //         window.location.reload()
-  //         return resposta.json()
-  //     })
-
-  // }
 
   function deletarUsuario(doacao) {
     fetch(urlBase4, {
@@ -67,12 +56,9 @@ export default function TelaDoacao(props) {
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Container className="border">
-        <Alert
-          variant="success"
-          className="text-center"
-        >
+        <Alert variant="success" className="text-center">
           Registre sua doação!
         </Alert>
         {exibirTabela ? (
@@ -97,6 +83,6 @@ export default function TelaDoacao(props) {
           </div>
         )}
       </Container>
-    </Pagina>
+    </ComponentePagina>
   );
 }

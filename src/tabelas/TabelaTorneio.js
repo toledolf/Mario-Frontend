@@ -1,5 +1,6 @@
 import { Container, Table, Button, Row, Col, FormControl } from "react-bootstrap";
 import { urlBase6 } from "../utilitarios/definicoes";
+import { useUser } from "../userContext";
 
 function TabelaTorneio(props) {
   function filtrar(e) {
@@ -15,6 +16,10 @@ function TabelaTorneio(props) {
         }
       });
   }
+
+  const userLevel = useUser();
+
+  console.log("Login bem-sucedido. UserLevel:", userLevel);
 
   return (
     <Container>
@@ -59,6 +64,7 @@ function TabelaTorneio(props) {
                 
                 <td>
                   <Button
+                    disabled={userLevel.userLevel === 1}
                     onClick={() => {
                       props.editarTorneio(torneio);
                     }}
@@ -75,6 +81,7 @@ function TabelaTorneio(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel.userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja realmente deletar esse torneio?"))
                         props.deletarTorneio(torneio);

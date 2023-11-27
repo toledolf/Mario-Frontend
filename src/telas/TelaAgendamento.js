@@ -3,9 +3,12 @@ import Pagina from "../templates/pagina";
 import TabelaAgendamento from "../tabelas/TabelaAgendamento";
 import { useState, useEffect } from "react";
 import { urlBase } from "../utilitarios/definicoes";
-import { Alert } from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
+import PaginaUser from "../templates/paginaUser";
+import { useUser } from "../userContext";
 
 function TelaAgendamento(props) {
+  const { userLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [agendamentos, setAgendamentos] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -15,6 +18,8 @@ function TelaAgendamento(props) {
     data: "",
     horario: "",
   });
+
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
 
   function prepararParaEdicao(agendamento) {
     setModoEdicao(true);
@@ -50,36 +55,35 @@ function TelaAgendamento(props) {
   }, []);
 
   return (
-    <Pagina>
-      <Alert
-        variant={"secondary"}
-        className="text-center m-3"
-      >
-        Agendamento de Espaço
-      </Alert>
-      {mostraTabela ? (
-        <TabelaAgendamento
-          listaAgendamentos={agendamentos}
-          setAgendamentos={setAgendamentos}
-          mostraTabela={setMostraTabela}
-          editarAgendamento={prepararParaEdicao}
-          deletarAgendamento={apagarAgendamento}
-          modoEdicao={modoEdicao}
-        />
-      ) : (
-        <div>
-          <FormAgendamento
+    <Container className="border">
+      <ComponentePagina>
+        <Alert variant={"secondary"} className="text-center m-3">
+          Agendamento de Espaço
+        </Alert>
+        {mostraTabela ? (
+          <TabelaAgendamento
             listaAgendamentos={agendamentos}
             setAgendamentos={setAgendamentos}
-            editarAgendamentos={prepararParaEdicao}
             mostraTabela={setMostraTabela}
-            setModoEdicao={setModoEdicao}
+            editarAgendamento={prepararParaEdicao}
+            deletarAgendamento={apagarAgendamento}
             modoEdicao={modoEdicao}
-            agendamento={agendamentoEmEdicao}
           />
-        </div>
-      )}
-    </Pagina>
+        ) : (
+          <div>
+            <FormAgendamento
+              listaAgendamentos={agendamentos}
+              setAgendamentos={setAgendamentos}
+              editarAgendamentos={prepararParaEdicao}
+              mostraTabela={setMostraTabela}
+              setModoEdicao={setModoEdicao}
+              modoEdicao={modoEdicao}
+              agendamento={agendamentoEmEdicao}
+            />
+          </div>
+        )}
+      </ComponentePagina>
+    </Container>
   );
 }
 

@@ -1,11 +1,14 @@
 import Pagina from "../templates/pagina.js";
+import PaginaUser from "../templates/paginaUser";
 import { useState, useEffect } from "react";
 import { urlBase7 } from "../utilitarios/definicoes";
 import { Alert } from "react-bootstrap";
 import TabelaTime from "../tabelas/TabelaTime";
 import FormTime from "../forms/formTime.jsx";
+import { useUser } from "../userContext";
 
 function TelaTime(props) {
+  const { userLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [times, setTimes] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -16,6 +19,8 @@ function TelaTime(props) {
     fundacao: "",
     treinador: "",
   });
+
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
 
   function prepararParaEdicao(time) {
     setModoEdicao(true);
@@ -59,7 +64,7 @@ function TelaTime(props) {
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Alert
         variant={"secondary"}
         className="text-center m-3"
@@ -87,7 +92,7 @@ function TelaTime(props) {
           />
         </div>
       )}
-    </Pagina>
+    </ComponentePagina>
   );
 }
 

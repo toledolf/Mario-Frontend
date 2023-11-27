@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Form, Row, Col, Container } from "react-bootstrap";
+import { Button, Form, Row, Col, Container, Alert } from "react-bootstrap";
 import { urlBase2, urlBase4 } from "../utilitarios/definicoes";
 import BarraBusca2 from "./BarraBusca2";
 import { IMaskInput } from "react-imask";
@@ -63,6 +63,12 @@ export default function FormDoacao(props) {
     evento.stopPropagation();
   }
 
+  const [mostrarDicas, setMostrarDicas] = useState(false);
+
+  const toggleDicas = () => {
+    setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
+  };
+
   const [usuarioSelecionado, setUsuarioSelecionado] = useState({});
   const [listaUsuarios, setListaUsuarios] = useState([]);
 
@@ -90,6 +96,24 @@ export default function FormDoacao(props) {
         validated={validado}
         onSubmit={manipulaSumissao}
       >
+        <Row>
+        <Col>
+          <Button onClick={toggleDicas}>
+            {mostrarDicas ? "Esconder Dicas" : "Mostrar Dicas"}
+          </Button>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3">
+          {mostrarDicas && (
+            <Alert variant="info">
+              <p>Dica 1: Insira SEU usuário ou use o CPF 000.000.000-00 para fazer uma doação anônima.</p>
+              <p>Dica 2: Insira uma breve descrição do Item ou adicione um valor.</p>
+            </Alert>
+          )}
+        </Col>
+      </Row>
         <Row>
           <Form.Group
             className="mb-3"

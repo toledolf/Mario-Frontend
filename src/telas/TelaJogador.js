@@ -1,11 +1,14 @@
 import Pagina from "../templates/pagina.js";
+import PaginaUser from "../templates/paginaUser";
 import { useState, useEffect } from "react";
 import { urlBase8 } from "../utilitarios/definicoes";
 import { Alert } from "react-bootstrap";
 import TabelaJogador from "../tabelas/TabelaJogador";
 import FormJogador from "../forms/formJogador";
+import { useUser } from "../userContext";
 
 function TelaJogador(props) {
+  const { userLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [jogadores, setJogadores] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -15,6 +18,8 @@ function TelaJogador(props) {
     time_id: "",
     cpfJogador: "",
   });
+
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
 
   function prepararParaEdicao(jogador) {
     setModoEdicao(true);
@@ -58,7 +63,7 @@ function TelaJogador(props) {
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Alert
         variant={"secondary"}
         className="text-center m-3"
@@ -86,7 +91,7 @@ function TelaJogador(props) {
           />
         </div>
       )}
-    </Pagina>
+    </ComponentePagina>
   );
 }
 
