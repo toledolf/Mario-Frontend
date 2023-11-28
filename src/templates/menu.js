@@ -3,7 +3,6 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export default function Menu(props) {
   const handleLogout = () => {
-    localStorage.removeItem("userLevel");
     window.location.href = "/";
   };
 
@@ -62,6 +61,10 @@ export default function Menu(props) {
               <NavDropdown.Divider />
               <LinkContainer to="/FormTreinador">
                 <NavDropdown.Item>Treinadores</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormRequisicao">
+                <NavDropdown.Item>Requisições</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
             </NavDropdown>

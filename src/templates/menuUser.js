@@ -3,7 +3,6 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export default function MenuUser(props) {
   const handleLogout = () => {
-    localStorage.removeItem("userLevel");
     window.location.href = "/";
   };
 
@@ -28,10 +27,6 @@ export default function MenuUser(props) {
                 <NavDropdown.Item>Agendamentos</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
-              <LinkContainer to="/FormUsuario">
-                <NavDropdown.Item>Usuários/Cadastro</NavDropdown.Item>
-              </LinkContainer>
-              <NavDropdown.Divider />
               <LinkContainer to="/formJogador">
                 <NavDropdown.Item>Jogadores/Times</NavDropdown.Item>
               </LinkContainer>
@@ -52,8 +47,20 @@ export default function MenuUser(props) {
                 <NavDropdown.Item>Torneios</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
+              <LinkContainer to="/formPlacar">
+                <NavDropdown.Item>Placar</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormCampo">
+                <NavDropdown.Item>Campos</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
               <LinkContainer to="/FormTreinador">
                 <NavDropdown.Item>Treinadores</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Divider />
+              <LinkContainer to="/FormRequisicao">
+                <NavDropdown.Item>Requisições</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Divider />
             </NavDropdown>

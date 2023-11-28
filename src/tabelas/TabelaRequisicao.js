@@ -1,19 +1,18 @@
 import { Container, Table, Button, Row, Col, FormControl } from "react-bootstrap";
-import { urlBase5 } from "../utilitarios/definicoes";
+import { urlBase13 } from "../utilitarios/definicoes";
 import { useUser } from "../userContext";
 
-
-function TabelaDenuncia(props) {
+function TabelaRequisicao(props) {
   function filtrar(e) {
     const termoBusca = e.currentTarget.value.toLowerCase();
-    fetch(urlBase5, { method: "GET" })
+    fetch(urlBase13, { method: "GET" })
       .then((resposta) => resposta.json())
-      .then((listaDenuncias) => {
-        if (Array.isArray(listaDenuncias)) {
-          const resultadoBusca = listaDenuncias.filter((denuncia) =>
-            denuncia.campoSelecionado.toLowerCase().includes(termoBusca)
+      .then((listaRequisicoes) => {
+        if (Array.isArray(listaRequisicoes)) {
+          const resultadoBusca = listaRequisicoes.filter((requisicao) =>
+            requisicao.id.includes(termoBusca)
           );
-          props.setDenuncias(resultadoBusca);
+          props.setRequisicoes(resultadoBusca);
         }
       });
   }
@@ -23,7 +22,7 @@ function TabelaDenuncia(props) {
   console.log("userLevel quando mudou:", userLevel);
 
   function gerarRelatorio() {
-    fetch(urlBase5, { method: "GET" })
+    fetch(urlBase13, { method: "GET" })
       .then((response) => response.json())
       .then((data) => {
         console.log("Dados do relatório:", data);
@@ -32,7 +31,7 @@ function TabelaDenuncia(props) {
         popup.document.write(`
         <html>
         <head>
-          <title>Relatório de Denúncias</title>
+          <title>Relatório de Requisições</title>
           <style>
             body {
               font-family: 'Arial', sans-serif;
@@ -68,29 +67,25 @@ function TabelaDenuncia(props) {
           </style>
         </head>
         <body>
-          <h1>Relatório de Denúncias</h1>
+          <h1>Relatório de Requisições</h1>
           <table>
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Data</th>
-                <th>Horário</th>
-                <th>Campo do Ocorrido</th>
-                <th>Nome do possível Infrator</th>
-                <th>Dados da Denúncia</th>
+              <th>Código Requisição</th>
+              <th>CPF do Usuário</th>
+              <th>Requisição</th>
+              <th>Data</th>
               </tr>
             </thead>
             <tbody>
               ${data
                 .map(
-                  (denuncia) => `
+                  (requisicao) => `
                   <tr>
-                    <td>${denuncia.id}</td>
-                    <td>${denuncia.data}</td>
-                    <td>${denuncia.horario}</td>
-                    <td>${denuncia.campoSelecionado}</td>
-                    <td>${denuncia.nomeInfrator}</td>
-                    <td>${denuncia.dadosDenuncia}</td>
+                    <td>${requisicao.id}</td>
+                    <td>${requisicao.user_cpf}</td>
+                    <td>${requisicao.requisicao}</td>
+                    <td>${requisicao.data}</td>
                   </tr>
                 `
                 )
@@ -118,7 +113,7 @@ function TabelaDenuncia(props) {
               type="text"
               id="termoBusca"
               onChange={filtrar}
-              placeholder="Digite a cor do CAMPO..."
+              placeholder="Busca por Requisição"
             />
           </Col>
           <Col className="d-flex justify-content-end">
@@ -129,6 +124,7 @@ function TabelaDenuncia(props) {
               Gerar Relatório
             </Button>
           </Col>
+          <Col></Col>
         </Row>
       </Container>
       <Table
@@ -139,32 +135,26 @@ function TabelaDenuncia(props) {
       >
         <thead>
           <tr>
-            <th>Id</th>
+            <th>Código Requisição</th>
+            <th>CPF do Usuário</th>
+            <th>Requisição</th>
             <th>Data</th>
-            <th>Horário</th>
-            <th>Campo do Ocorrido</th>
-            <th>Nome do possível Infrator</th>
-            <th>Dados da Denúncia</th>
-            <th>CPF do Usuário que Denunciou</th>
-            <th>Editar | Excluir Campo</th>
+            <th>Editar | Excluir Requisição</th>
           </tr>
         </thead>
         <tbody>
-          {props.listaDenuncias?.map((denuncia) => {
+          {props.listaRequisicoes?.map((requisicao) => {
             return (
-              <tr key={denuncia.id}>
-                <td>{denuncia.id}</td>
-                <td>{denuncia.data}</td>
-                <td>{denuncia.horario}</td>
-                <td>{denuncia.campoSelecionado}</td>
-                <td>{denuncia.nomeInfrator}</td>
-                <td>{denuncia.dadosDenuncia}</td>
-                <td>{denuncia.cpfUsuario.cpf}</td>
+              <tr key={requisicao.id}>
+                <td>{requisicao.id}</td>
+                <td>{requisicao.user_cpf}</td>
+                <td>{requisicao.requisicao}</td>
+                <td>{requisicao.data}</td>
                 <td>
                   <Button
                     disabled={userLevel.userLevel === 1}
                     onClick={() => {
-                      props.editarCampo(denuncia);
+                      props.editarRequisicao(requisicao);
                     }}
                   >
                     <svg
@@ -181,8 +171,8 @@ function TabelaDenuncia(props) {
                   <Button
                     disabled={userLevel.userLevel === 1}
                     onClick={() => {
-                      if (window.confirm("Deseja realmente deletar esse campo?"))
-                        props.deletarCampo(denuncia);
+                      if (window.confirm("Deseja realmente deletar essa requisição?"))
+                        props.deletarRequisicao(requisicao);
                     }}
                   >
                     <svg
@@ -208,10 +198,10 @@ function TabelaDenuncia(props) {
           props.mostraTabela(false);
         }}
       >
-        Cadastrar Denuncia
+        Requisições
       </Button>
     </Container>
   );
 }
 
-export default TabelaDenuncia;
+export default TabelaRequisicao;

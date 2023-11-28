@@ -27,6 +27,7 @@ export default function TabelaUsuarios(props) {
   return (
     <Container className="m-4">
       <Button
+        disabled={userLevel === 1}
         onClick={() => {
           props.exibirTabela(false);
         }}

@@ -1,41 +1,41 @@
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Container, Alert } from "react-bootstrap";
-import { urlBase11 } from "../utilitarios/definicoes";
-import { urlBase7 } from "../utilitarios/definicoes";
-import CaixaSelecao from "./CaixaSelecao";
+import { urlBase13, urlBase2 } from "../utilitarios/definicoes";
+import BarraBusca from "./BarraBusca.js";
 import { IMaskInput } from "react-imask";
 
-function FormPlacar(props) {
+function FormRequisicao(props) {
   const [validado, setValidado] = useState(false);
-  const [placar, setPlacar] = useState(props.placar);
+  const [requisicao, setRequisicao] = useState(props.requisicao);
 
   function manipularInput(e) {
     const elementoForm = e.currentTarget;
     const id = elementoForm.id;
     const valor = elementoForm.value;
-    setPlacar({ ...placar, [id]: valor });
+    setRequisicao({ ...requisicao, [id]: valor });
+  }
+
+  function manipularInput(e) {
+    const elementoForm = e.currentTarget;
+    const id = elementoForm.id;
+    const valor = elementoForm.value;
+    setRequisicao({ ...requisicao, [id]: valor });
   }
 
   function manipularEnvio(evento) {
     const form = evento.currentTarget;
 
     if (form.checkValidity()) {
-      const time_1 = {
-        time_id_1: timeSelecionado.id,
+      const dadosParaEnvio = {
+        usuario: {
+          user_cpf: usuarioSelecionado.cpf,
+        },
+        requisicao: requisicao.requisicao,
+        data: requisicao.data,
       };
 
-      const time_2 = {
-        time_id_2: timeSelecionado.id,
-      };
-      const dadosParaEnvio = {
-        time_id_1: time_1.id,
-        resultado_time_id_1: placar.resultado_time_id_1,
-        time_id_2: time_2.id,
-        resultado_time_id_2: placar.resultado_time_id_2,
-        data: placar.data,
-      };
       if (!props.modoEdicao) {
-        fetch(urlBase11, {
+        fetch(urlBase13, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -44,10 +44,11 @@ function FormPlacar(props) {
         })
           .then((resposta) => {
             if (resposta.ok) {
-              window.alert("Placar cadastrado com sucesso!!!");
+              window.alert("Requisicao cadastrada com sucesso!!!");
               window.location.reload();
-              console.log(resposta);
               return resposta.json();
+            } else {
+              window.alert("Usuário não encontrado!!!");
             }
           })
           .catch((error) => {
@@ -55,15 +56,15 @@ function FormPlacar(props) {
             window.alert(error.message);
           });
       } else {
-        dadosParaEnvio.id = placar.id;
-        fetch(urlBase11, {
+        dadosParaEnvio.id = requisicao.id;
+        fetch(urlBase13, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(dadosParaEnvio),
         }).then((resp) => {
-          window.alert("Placar Atualizado com Sucesso!!!");
+          window.alert("Requisicao Atualizada com Sucesso!!!");
           window.location.reload();
           return resp.json();
         });
@@ -83,14 +84,14 @@ function FormPlacar(props) {
     setMostrarDicas((prevMostrarDicas) => !prevMostrarDicas);
   };
 
-  const [timeSelecionado, setTimeSelecionado] = useState({});
-  const [listaTimes, setListaTimes] = useState([]);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState({});
+  const [ListaUsuarios, setListaUsuarios] = useState([]);
 
   useEffect(() => {
-    fetch(urlBase7)
+    fetch(urlBase2)
       .then((resposta) => resposta.json())
       .then((dados) => {
-        setListaTimes(dados);
+        setListaUsuarios(dados);
       });
   }, []);
 
@@ -101,7 +102,7 @@ function FormPlacar(props) {
       onSubmit={manipularEnvio}
     >
       <Container className="mt-4 mb-4 d-flex justify-content-center">
-        <h1>Cadastro de Placares dos Jogos</h1>
+        <h1>Registar uma Requisição</h1>
       </Container>
       <Row>
         <Col>
@@ -115,9 +116,13 @@ function FormPlacar(props) {
         <Col className="mt-3">
           {mostrarDicas && (
             <Alert variant="info">
-              <p>Dica 1: Insira os times e os gols de cada.</p>
-              <p>Dica 2: Selecione a data do jogo.</p>
-              <p>Área distinada a administradores.</p>
+              <p>
+                Dica 1: Selecione o SEU usuário para agendar o campo, caso contrário, o
+                agendamento será cancelado por um coordenador.
+              </p>
+              <p>Dica 2: Informe o campo que será agendado e a data.</p>
+              <p>Dica 3: Informe o horário que o campo será agendado.</p>
+              <p>Sua reserva estará aprovada quando o envio for efetuado.</p>
             </Alert>
           )}
         </Col>
@@ -125,96 +130,71 @@ function FormPlacar(props) {
       <Row>
         <Col>
           <Form.Group className="mb-3">
+            <Form.Label>Usuário:</Form.Label>
+            <BarraBusca
+              placeHolder={"Informe um Usuário"}
+              dados={ListaUsuarios}
+              campoChave={"cpf"}
+              campoBusca={"nome"}
+              funcaoSelecao={setUsuarioSelecionado}
+              valor={""}
+            />
+            <Form.Control.Feedback type="invalid">
+              Por favor, insira o Usuário!
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Group className="mb-3">
+            <Form.Label>Código:</Form.Label>
             <Form.Control
               disabled
               type="number"
-              placeholder="O id será gerado automaticamente."
-              value={placar.id}
-              id="id"
+              placeholder="O código será gerado automaticamente."
+              value={requisicao.id}
+              id="codigo"
             />
           </Form.Group>
         </Col>
-        <Row />
 
         <Col>
-          <Form.Label>Selecione o Time 1:</Form.Label>
-          <CaixaSelecao
-            urlBase3={urlBase7}
-            campoChave="id"
-            campoSelecao={"nome"}
-            dados={listaTimes}
-            funccaoSelecao={setTimeSelecionado}
-          ></CaixaSelecao>
-          <Form.Control.Feedback type="invalid">
-            Por favor, informe o Time!
-          </Form.Control.Feedback>
-        </Col>
-
-        <Col>
-          <Form.Label>Digite os gols do time 1:</Form.Label>
-          <Form.Group>
+          <Form.Group
+            className="mb-3"
+            controlId="dataNasc"
+          >
+            <Form.Label style={{ textAlign: "center" }}>Descreva a Infração:</Form.Label>
             <Form.Control
               required
-              type="number"
-              placeholder="Número de gols..."
-              value={placar.resultado_time_id_1}
-              id="resultado_time_id_1"
+              as="textarea"
+              placeholder="Descreva a Infração. Seja objetivo!"
+              style={{ width: "600px", height: "180px", margin: "auto" }}
+              value={requisicao.requisicao}
+              id="requisicao"
               onChange={manipularInput}
             />
             <Form.Control.Feedback type="invalid">
-              Por favor, insira o resultado!
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
-
-        {/* TIME 2 */}
-
-        <Col>
-          <Form.Label>Selecione o Time 2:</Form.Label>
-          <CaixaSelecao
-            urlBase3={urlBase7}
-            campoChave="id"
-            campoSelecao={"nome"}
-            dados={listaTimes}
-            funccaoSelecao={setTimeSelecionado}
-          ></CaixaSelecao>
-          <Form.Control.Feedback type="invalid">
-            Por favor, informe o Time!
-          </Form.Control.Feedback>
-        </Col>
-
-        <Col>
-          <Form.Label>Digite os gols do time 2:</Form.Label>
-          <Form.Group>
-            <Form.Control
-              required
-              type="number"
-              placeholder="Número de gols..."
-              value={placar.resultado_time_id_2}
-              id="resultado_time_id_2"
-              onChange={manipularInput}
-            />
-            <Form.Control.Feedback type="invalid">
-              Por favor, insira o resultado!
+              Por favor, informe a data!
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
 
         <Col>
-          <Form.Label>Digite a data da partida:</Form.Label>
-          <Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Informe uma Data:</Form.Label>
             <Form.Control
               as={IMaskInput}
-              mask={"00/00/0000"}
-              required
+              mask="00/00/0000"
               type="text"
               placeholder="00/00/0000"
-              value={placar.data}
+              value={requisicao.data}
               id="data"
               onChange={manipularInput}
+              required
             />
             <Form.Control.Feedback type="invalid">
-              Por favor, insira a data da partida!
+              Por favor, insira uma data!
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -222,19 +202,25 @@ function FormPlacar(props) {
 
       <Row>
         <Row>
+          <div>
+            <br />
+          </div>
+        </Row>
+
+        <Row>
           <Col>
             <Button type="submit">Enviar informações</Button>
             <div>
               <br />
             </div>
-            <Button
+            {/* <Button
               type="button"
               onClick={() => {
                 props.mostraTabela(true);
               }}
             >
               Voltar
-            </Button>
+            </Button> */}
           </Col>
         </Row>
       </Row>
@@ -242,4 +228,4 @@ function FormPlacar(props) {
   );
 }
 
-export default FormPlacar;
+export default FormRequisicao;

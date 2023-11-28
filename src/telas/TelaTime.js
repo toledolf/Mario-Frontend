@@ -8,7 +8,7 @@ import FormTime from "../forms/formTime.jsx";
 import { useUser } from "../userContext";
 
 function TelaTime(props) {
-  const { userLevel } = useUser();
+  const { userLevel, setUserLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [times, setTimes] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -47,6 +47,13 @@ function TelaTime(props) {
       }
     });
   }
+
+  useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
 
   useEffect(() => {
     fetch(urlBase7, {

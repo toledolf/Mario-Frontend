@@ -72,6 +72,10 @@ export default function TelaLogin() {
     }
   };
 
+  const irParaFormUsuario = () => {
+    navigate("/formCadastro");
+  };
+
   return (
     <div className="login-page">
       <div className="form">
@@ -102,6 +106,13 @@ export default function TelaLogin() {
           </button>
           <br />
           <br />
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={irParaFormUsuario}
+          >
+            Cadastrar-se
+          </button>
           <div
             id="mensagemErro"
             className="text-danger"

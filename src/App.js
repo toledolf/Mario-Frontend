@@ -13,6 +13,8 @@ import TelaTime from "./telas/TelaTime";
 import TelaTreinador from "./telas/telaTreinador";
 import TelaPlacar from "./telas/telaPlacar";
 import TelaMenuUser from "./telas/TelaMenuUser";
+import TelaRequisicao from "./telas/TelaRequisicao";
+import FormPrimeiroCadastro from "./primeiroCadastro/formCadastro";
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
           <Route
             path="/"
             element={<TelaLogin />}
+          />
+          <Route
+            path="/formCadastro"
+            element={<FormPrimeiroCadastro />}
           />
           <Route
             path="/telaMenu"
@@ -70,6 +76,10 @@ function App() {
           <Route
             path="/FormPlacar"
             element={<TelaPlacar />}
+          />
+          <Route
+            path="/FormRequisicao"
+            element={<TelaRequisicao />}
           />
           <Route
             path="*"

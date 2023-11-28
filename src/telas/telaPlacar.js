@@ -1,11 +1,15 @@
 import Pagina from "../templates/pagina.js";
+import PaginaUser from "../templates/paginaUser.js";
 import { useState, useEffect } from "react";
 import { urlBase11 } from "../utilitarios/definicoes";
 import { Alert } from "react-bootstrap";
 import TabelaPlacar from "../tabelas/TabelaPlacar";
 import FormPlacar from "../forms/formPlacar";
+import { useUser } from "../userContext";
 
 function TelaPlacar(props) {
+  const { userLevel, setUserLevel } = useUser();
+
   const [mostraTabela, setMostraTabela] = useState(true);
   const [placares, setPlacares] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -17,6 +21,8 @@ function TelaPlacar(props) {
     resultado_time_id_2: "",
     data: "",
   });
+
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
 
   function prepararParaEdicao(placar) {
     setModoEdicao(true);
@@ -45,6 +51,13 @@ function TelaPlacar(props) {
   }
 
   useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
+
+  useEffect(() => {
     fetch(urlBase11, {
       method: "GET",
     })
@@ -54,14 +67,12 @@ function TelaPlacar(props) {
       .then((dados) => {
         if (Array.isArray(dados)) {
           setPlacares(dados);
-        } else {
-          // se for um objeto, deu erro
         }
       });
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Alert
         variant={"secondary"}
         className="text-center m-3"
@@ -89,7 +100,7 @@ function TelaPlacar(props) {
           />
         </div>
       )}
-    </Pagina>
+    </ComponentePagina>
   );
 }
 

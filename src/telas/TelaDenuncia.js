@@ -9,8 +9,7 @@ import PaginaUser from "../templates/paginaUser.js";
 import { useUser } from "../userContext";
 
 function TelaDenuncia(props) {
-  const { userLevel } = useUser();
-  const [mostraTabela, setMostraTabela] = useState(true);
+  const { userLevel, setUserLevel } = useUser();
   const [denuncias, setDenuncias] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
   const [denunciaEmEdicao, setDenunciaEmEdicao] = useState({
@@ -23,54 +22,58 @@ function TelaDenuncia(props) {
     cpfUsuario: "",
   });
 
-  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
-
-  function prepararParaEdicao(denuncia) {
-    setModoEdicao(true);
-    setDenunciaEmEdicao(denuncia);
-    setMostraTabela(false);
-  }
+  useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
 
   useEffect(() => {
     fetch(urlBase5, {
       method: "GET",
     })
-      .then((resp) => {
-        return resp.json();
-      })
+      .then((resp) => resp.json())
       .then((dados) => {
         if (Array.isArray(dados)) {
           setDenuncias(dados);
         } else {
+          // Trate aqui se necessário
         }
       });
   }, []);
 
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
+
+  function prepararParaEdicao(denuncia) {
+    setModoEdicao(true);
+    setDenunciaEmEdicao(denuncia);
+  }
+
   return (
     <ComponentePagina>
-      <Container className="border">
-        <Alert variant={"secondary"} className="text-center m-3">
+      <Container>
+        <Alert
+          variant={"secondary"}
+          className="text-center m-3"
+        >
           Cadastro de Denúncias
         </Alert>
-        {mostraTabela ? (
+        {userLevel !== 1 && (
           <TabelaDenuncia
             listaDenuncias={denuncias}
             setDenuncias={setDenuncias}
-            mostraTabela={setMostraTabela}
+            prepararParaEdicao={prepararParaEdicao}
           />
-        ) : (
-          <div>
-            <FormDenuncia
-              listaDenuncias={denuncias}
-              setDenuncias={setDenuncias}
-              editarCampos={prepararParaEdicao}
-              mostraTabela={setMostraTabela}
-              setModoEdicao={setModoEdicao}
-              modoEdicao={modoEdicao}
-              denuncia={denunciaEmEdicao}
-            />
-          </div>
         )}
+        <FormDenuncia
+          listaDenuncias={denuncias}
+          setDenuncias={setDenuncias}
+          editarCampos={prepararParaEdicao}
+          setModoEdicao={setModoEdicao}
+          modoEdicao={modoEdicao}
+          denuncia={denunciaEmEdicao}
+        />
       </Container>
     </ComponentePagina>
   );

@@ -111,18 +111,18 @@ function FormCampo(props) {
         </Col>
 
         <Col>
-          <Form.Label>Selecione uma Cor:</Form.Label>
+          <Form.Label>Selecione uma Cor (Referencial):</Form.Label>
           <Form.Select
             value={campo.corReferencial}
             id="corReferencial"
             required
             onChange={manipularInput}
           >
-            <option value="Erro! Seleção não efetivada!">Selecione uma Cor...</option>
-            <option value="Azul">1 - Azul</option>
-            <option value="Verde">2 - Verde</option>
-            <option value="Roxo">3 - Roxo</option>
-            <option value="Amarelo">4 - Amarelo</option>
+            <option value="Erro! Seleção não efetivada!">Selecione o Campo...</option>
+            <option value="Azul - Quadra">1 - Azul - Quadra</option>
+            <option value="Verde - Campo">2 - Verde - Campo</option>
+            <option value="Roxo - Campo">3 - Roxo - Campo</option>
+            <option value="Amarelo - Campo">4 - Amarelo - Campo</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             Por favor, informe uma Cor!

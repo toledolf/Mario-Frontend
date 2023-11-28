@@ -8,7 +8,7 @@ import PaginaUser from "../templates/paginaUser";
 import { useUser } from "../userContext";
 
 function TelaAgendamento(props) {
-  const { userLevel } = useUser();
+  const { userLevel, setUserLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [agendamentos, setAgendamentos] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -20,6 +20,8 @@ function TelaAgendamento(props) {
   });
 
   const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
+
+  console.log("agendamento:", userLevel);
 
   function prepararParaEdicao(agendamento) {
     setModoEdicao(true);
@@ -40,6 +42,13 @@ function TelaAgendamento(props) {
   }
 
   useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
+
+  useEffect(() => {
     fetch(urlBase, {
       method: "GET",
     })
@@ -55,7 +64,6 @@ function TelaAgendamento(props) {
   }, []);
 
   return (
-    <Container className="border">
       <ComponentePagina>
         <Alert variant={"secondary"} className="text-center m-3">
           Agendamento de Espaço
@@ -83,7 +91,6 @@ function TelaAgendamento(props) {
           </div>
         )}
       </ComponentePagina>
-    </Container>
   );
 }
 

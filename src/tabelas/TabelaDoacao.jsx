@@ -101,6 +101,7 @@ export default function TabelaDoacao(props) {
                     </svg>
                   </Button>{" "}
                   <Button
+                    disabled={userLevel === 1}
                     onClick={() => {
                       if (window.confirm("Deseja atualizar?")) {
                         props.editar(doacao);

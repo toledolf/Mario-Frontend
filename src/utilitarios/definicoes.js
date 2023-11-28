@@ -9,3 +9,4 @@ export const urlBase8 = "http://localhost:3010/jogador";
 export const urlBase10 = "http://localhost:3010/treinador";
 export const urlBase11 = "http://localhost:3010/placar";
 export const urlBase12 = "http://localhost:3010/login";
+export const urlBase13 = "http://localhost:3010/requisicao";

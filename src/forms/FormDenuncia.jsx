@@ -273,14 +273,14 @@ function FormDenuncia(props) {
             <div>
               <br />
             </div>
-            <Button
+            {/* <Button
               type="button"
               onClick={() => {
                 props.mostraTabela(true);
               }}
             >
               Voltar
-            </Button>
+            </Button> */}
           </Col>
         </Row>
       </Row>

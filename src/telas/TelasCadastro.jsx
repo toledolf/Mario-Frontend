@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Alert, Container } from "react-bootstrap";
 import TabelaUsuarios from "../tabelas/TabelaUsuarios";
 import FormUsuarios from "../forms/FormUsuario";
 import Pagina from "../templates/pagina";
@@ -71,10 +70,7 @@ export default function TelaCadastro() {
   }, []);
 
   return (
-    <Container className="border">
-      <Alert variant="success" className="text-center">
-        Cadastro de Usuários no Sistema
-      </Alert>
+
       <ComponentePagina>
         {exibirTabela ? (
           <TabelaUsuarios
@@ -96,6 +92,6 @@ export default function TelaCadastro() {
           />
         )}
       </ComponentePagina>
-    </Container>
+
   );
 }

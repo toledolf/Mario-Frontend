@@ -9,7 +9,7 @@ import FormTreinador from "../forms/formTreinador.jsx";
 import { useUser } from "../userContext";
 
 function TelaTreinador(props) {
-  const { userLevel } = useUser();
+  const { userLevel, setUserLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [treinadores, setTreinadores] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -49,6 +49,13 @@ function TelaTreinador(props) {
       }
     });
   }
+
+  useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
 
   useEffect(() => {
     fetch(urlBase10, {

@@ -9,7 +9,7 @@ import FormTorneio from "../forms/formTorneio.jsx";
 import { useUser } from "../userContext";
 
 function TelaTorneio(props) {
-  const { userLevel } = useUser();
+  const { userLevel, setUserLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [torneios, setTorneios] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -28,6 +28,13 @@ function TelaTorneio(props) {
     setTorneioEmEdicao(torneio);
     setMostraTabela(false);
   }
+
+  useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
 
   useEffect(() => {
     fetch(urlBase6, {

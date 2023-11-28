@@ -1,11 +1,17 @@
 import Pagina from "../templates/pagina.js";
+import PaginaUser from "../templates/paginaUser.js";
 import { useState, useEffect } from "react";
 import { urlBase3 } from "../utilitarios/definicoes";
 import { Alert } from "react-bootstrap";
 import TabelaCampo from "../tabelas/TabelaCampo";
 import FormCampo from "../forms/FormCampo";
+import { useUser } from "../userContext";
+
+
 
 function TelaCampo(props) {
+  const { userLevel, setUserLevel } = useUser();
+
   const [mostraTabela, setMostraTabela] = useState(true);
   const [campos, setCampos] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -14,6 +20,9 @@ function TelaCampo(props) {
     corReferencial: "",
     descricao: "",
   });
+
+  const ComponentePagina = userLevel === 1 ? PaginaUser : Pagina;
+
 
   function prepararParaEdicao(campo) {
     setModoEdicao(true);
@@ -42,6 +51,13 @@ function TelaCampo(props) {
   }
 
   useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
+
+  useEffect(() => {
     fetch(urlBase3, {
       method: "GET",
     })
@@ -57,7 +73,7 @@ function TelaCampo(props) {
   }, []);
 
   return (
-    <Pagina>
+    <ComponentePagina>
       <Alert
         variant={"secondary"}
         className="text-center m-3"
@@ -85,7 +101,7 @@ function TelaCampo(props) {
           />
         </div>
       )}
-    </Pagina>
+    </ComponentePagina>
   );
 }
 

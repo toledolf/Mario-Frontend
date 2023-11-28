@@ -8,7 +8,7 @@ import FormJogador from "../forms/formJogador";
 import { useUser } from "../userContext";
 
 function TelaJogador(props) {
-  const { userLevel } = useUser();
+  const { userLevel, setUserLevel } = useUser();
   const [mostraTabela, setMostraTabela] = useState(true);
   const [jogadores, setJogadores] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -46,6 +46,13 @@ function TelaJogador(props) {
       }
     });
   }
+
+  useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
 
   useEffect(() => {
     fetch(urlBase8, {

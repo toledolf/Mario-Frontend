@@ -8,7 +8,7 @@ import { urlBase4 } from "../utilitarios/definicoes";
 import { useUser } from "../userContext";
 
 export default function TelaDoacao(props) {
-  const { userLevel } = useUser();
+  const { userLevel, setUserLevel } = useUser();
   const [exibirTabela, setExibirTabela] = useState(true);
   const [doacoes, setDoacoes] = useState([]);
   const [modoEdicao, setModoEdicao] = useState(false);
@@ -41,6 +41,13 @@ export default function TelaDoacao(props) {
   }
 
   useEffect(() => {
+    const storedUserLevel = localStorage.getItem("userLevel");
+    if (storedUserLevel) {
+      setUserLevel(parseInt(storedUserLevel, 10));
+    }
+  }, [setUserLevel]);
+
+  useEffect(() => {
     fetch(urlBase4, {
       method: "GET",
     })
@@ -57,7 +64,7 @@ export default function TelaDoacao(props) {
 
   return (
     <ComponentePagina>
-      <Container className="border">
+      <Container>
         <Alert variant="success" className="text-center">
           Registre sua doação!
         </Alert>

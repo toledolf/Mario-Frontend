@@ -19,7 +19,90 @@ function TabelaTorneio(props) {
 
   const userLevel = useUser();
 
-  console.log("Login bem-sucedido. UserLevel:", userLevel);
+  console.log("userLevel quando mudou:", userLevel);
+
+  function gerarRelatorio() {
+    fetch(urlBase6, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Dados do relatório:", data);
+
+        const popup = window.open("", "_blank");
+        popup.document.write(`
+        <html>
+        <head>
+          <title>Relatório de Torneios</title>
+          <style>
+            body {
+              font-family: 'Arial', sans-serif;
+              margin: 20px;
+            }
+            h1 {
+              color: #007BFF;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 20px;
+            }
+            th, td {
+              border: 1px solid #007BFF;
+              padding: 10px;
+              text-align: left;
+            }
+            th {
+              background-color: #007BFF;
+              color: white;
+            }
+            button {
+              background-color: #28A745;
+              color: white;
+              padding: 10px;
+              border: none;
+              cursor: pointer;
+            }
+            button:hover {
+              background-color: #218838;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Relatório de Torneios</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Modalidade</th>
+                <th>Número de Equipes</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data
+                .map(
+                  (torneio) => `
+                  <tr>
+                    <td>${torneio.id}</td>
+                    <td>${torneio.modalidade}</td>
+                    <td>${torneio.numEquipes}</td>
+                    <td>${torneio.data}</td>
+                  </tr>
+                `
+                )
+                .join("")}
+            </tbody>
+          </table>
+          <button onclick="window.print()">
+            Imprimir Relatório
+          </button>
+        </body>
+      </html>
+    `);
+      })
+      .catch((error) => {
+        console.error("Erro ao gerar relatório:", error);
+      });
+  }
 
   return (
     <Container>
@@ -33,7 +116,18 @@ function TabelaTorneio(props) {
               placeholder="Digite a modalidade..."
             />
           </Col>
-          <Col></Col>
+          <Col className="d-flex align-items-center">
+            <Button
+              style={{
+                marginLeft: "auto",
+                backgroundColor: "#4CAF50",
+                color: "#fff",
+              }}
+              onClick={gerarRelatorio}
+            >
+              Gerar Relatório
+            </Button>
+          </Col>
         </Row>
       </Container>
       <Table
@@ -61,7 +155,7 @@ function TabelaTorneio(props) {
                 <td>{torneio.numEquipes}</td>
                 <td>{torneio.data}</td>
                 <td>{torneio.cpfUsuario.cpf}</td>
-                
+
                 <td>
                   <Button
                     disabled={userLevel.userLevel === 1}
