@@ -117,7 +117,7 @@ function FormAgendamento(props) {
         <Col className="mt-3">
           {mostrarDicas && (
             <Alert variant="info">
-              <p>Dica 1: Insira o usuário (Área destinada a adminstração).</p>
+              <p>Dica 1: Insira o usuário.</p>
               <p>Dica 2: Selecione o time que irá atuar.</p>
               <p>Dica 3: Selecione a posição que irá jogar.</p>
             </Alert>

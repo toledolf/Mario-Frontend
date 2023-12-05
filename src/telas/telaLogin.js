@@ -34,18 +34,15 @@ export default function TelaLogin() {
         const result = await resposta.json();
 
         localStorage.setItem("userLevel", result.userLevel.toString());
-        console.log(localStorage.getItem("userLevel"));
+        localStorage.setItem("cpf", result.cpf);
 
         if (result.status === 200) {
           const userLevel = result.userLevel;
 
           if (userLevel === 1) {
             navigate("/telaMenuUser");
-            console.log(localStorage.getItem("userLevel"));
           } else if (userLevel === 1000) {
             navigate("/TelaMenu");
-          } else {
-            console.error("UserLevel desconhecido:", userLevel);
           }
         }
       } else {

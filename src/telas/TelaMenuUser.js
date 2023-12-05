@@ -19,7 +19,7 @@ export default function TelaMenu() {
     <div className="pai">
       <PaginaUser className="tela">
         <h2>
-          Bem-Vindo ao Sistema de Gerenciamento de Horarios da Prefeitura de Anhumas!
+          Bem-Vindo ao Sistema de Gerenciamento de Horários da Prefeitura de Anhumas!
         </h2>
         <img
           src={isPrimeiraImagem ? Imagem : Imagem2}

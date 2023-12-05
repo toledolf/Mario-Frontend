@@ -1,10 +1,21 @@
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { useUser } from "../userContext";
+import { useEffect } from "react";
 
 export default function Menu(props) {
   const handleLogout = () => {
     window.location.href = "/";
   };
+
+  const { cpf, setCpf } = useUser();
+
+  useEffect(() => {
+    const storedCpf = localStorage.getItem("cpf");
+    if (storedCpf) {
+      setCpf(storedCpf);
+    }
+  }, [setCpf]);
 
   return (
     <Navbar
@@ -13,7 +24,7 @@ export default function Menu(props) {
     >
       <Container>
         <LinkContainer to="/telaMenu">
-          <Navbar.Brand>Inicio</Navbar.Brand>
+          <Navbar.Brand>Início</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -68,6 +79,9 @@ export default function Menu(props) {
               </LinkContainer>
               <NavDropdown.Divider />
             </NavDropdown>
+            <Navbar.Text style={{ fontWeight: "bold" }}>
+              Usuário Logado: {cpf}
+            </Navbar.Text>
           </Nav>
           <Nav>
             <Nav.Link onClick={handleLogout}>Sair</Nav.Link>

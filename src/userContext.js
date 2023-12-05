@@ -4,10 +4,16 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userLevel, setUserLevel] = useState();
+  const [cpf, setCpf] = useState();
 
   useEffect(() => {
     const storedUserLevel = localStorage.getItem("userLevel");
     setUserLevel(storedUserLevel);
+  }, []);
+
+  useEffect(() => {
+    const storedCpf = localStorage.getItem("cpf");
+    setCpf(storedCpf);
   }, []);
 
   const setUserLevelWithLocalStorage = (newUserLevel) => {
@@ -20,9 +26,21 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const setCpfWithLocalStorage = (newCpf) => {
+    if (newCpf) {
+      setCpf(newCpf);
+      localStorage.setItem("cpf", newCpf.toString());
+    }
+  };
+
   return (
     <UserContext.Provider
-      value={{ userLevel, setUserLevel: setUserLevelWithLocalStorage }}
+      value={{
+        userLevel,
+        setUserLevel: setUserLevelWithLocalStorage,
+        cpf,
+        setCpf: setCpfWithLocalStorage,
+      }}
     >
       {children}
     </UserContext.Provider>

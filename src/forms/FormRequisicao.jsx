@@ -117,12 +117,10 @@ function FormRequisicao(props) {
           {mostrarDicas && (
             <Alert variant="info">
               <p>
-                Dica 1: Selecione o SEU usuário para agendar o campo, caso contrário, o
-                agendamento será cancelado por um coordenador.
+                Dica 1: Selecione o SEU usuário para registrar uma requisição.
               </p>
-              <p>Dica 2: Informe o campo que será agendado e a data.</p>
-              <p>Dica 3: Informe o horário que o campo será agendado.</p>
-              <p>Sua reserva estará aprovada quando o envio for efetuado.</p>
+              <p>Dica 2: Descrava sua requisição.</p>
+              <p>Dica 3: Informe a data da requisição.</p>
             </Alert>
           )}
         </Col>
